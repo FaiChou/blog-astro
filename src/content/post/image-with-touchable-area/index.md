@@ -1,6 +1,8 @@
 ---
 title: "Image With Touchable Area"
 publishDate: "2020-03-24"
+description: "Image with touchable area"
+tags: ["html", "javascript", "dev"]
 ---
 
 做前端开发经常会遇到公告图预览图等，需求一般是图片中有几个点击热区，点击热区跳转不同位置。

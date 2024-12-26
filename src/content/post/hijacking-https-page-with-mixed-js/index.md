@@ -1,6 +1,8 @@
 ---
 title: "HTTPS网站被劫持, 塞上了混淆的JS代码"
 publishDate: "2019-07-17"
+description: "HTTPS网站被劫持, 塞上了混淆的JS代码"
+tags: ["http", "javascript", "hack"]
 ---
 
 下午突然有位同事的手机在 app 上频繁请求打开其他 app: 京东拼多多UC等. 经过测试, 只有在安卓上会有这种事情发生, 并且只有在某一特殊页面会发生.

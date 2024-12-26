@@ -1,6 +1,7 @@
 ---
 title: "new blog system"
 publishDate: "2019-04-01"
+description: "new blog system"
 ---
 
 ## 相貌

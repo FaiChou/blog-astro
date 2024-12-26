@@ -1,6 +1,9 @@
 ---
 title: "HTTP 缓存"
 publishDate: "2021-03-02"
+description: "HTTP 缓存"
+tags: ["http", "dev"]
+
 ---
 
 客户端请求服务器, 中间可能经过缓存服务器, 这是 http 协议里的,

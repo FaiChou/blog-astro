@@ -1,6 +1,8 @@
 ---
 title: "My NVIM"
 publishDate: "2023-10-13"
+description: "My NVIM"
+tags: ["vim"]
 ---
 
 

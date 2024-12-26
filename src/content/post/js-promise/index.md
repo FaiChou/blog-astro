@@ -1,6 +1,8 @@
 ---
 title: "JS Promise"
 publishDate: "2023-08-03"
+description: "JS Promise"
+tags: ["javascript", "dev"]
 ---
 
 已经很长时间没有写 JS 了，现在写一个 JS Promise 的简单实现。

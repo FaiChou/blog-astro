@@ -1,6 +1,8 @@
 ---
 title: "Fuck Windows"
+description: "Windows 系统的坑"
 publishDate: "2023-05-14"
+tags: ["windows"]
 ---
 
 有一台 NUC 炸了, 导致我这两天专心搞数据恢复与系统重装. 因为很少接触 Windows 系统, 所以踩的坑不少. 一共有 5 台 NUC, 有两台打开应用风扇就会狂转, 已经有一台把硬盘烧坏了.

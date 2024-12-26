@@ -1,6 +1,8 @@
 ---
 title: "上帝的手术刀"
 publishDate: "2017-08-29"
+description: "上帝的手术刀"
+tags: ["book"]
 ---
 
 > 上帝的手术刀：基因编辑简史 (王立铭)

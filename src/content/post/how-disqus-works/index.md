@@ -1,6 +1,8 @@
 ---
 title: "How disqus works"
 publishDate: "2020-04-04"
+description: "How disqus works"
+tags: ["dev"]
 ---
 
 本博客评论系统用的是 [Disqus](https://disqus.com/), 它是一个比较好用的评论系统， 本篇简单介绍如何使用并且它是如何工作的。

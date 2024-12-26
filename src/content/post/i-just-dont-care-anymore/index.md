@@ -1,6 +1,8 @@
 ---
 title: "I just don't care (In A Good Way) anymore"
 publishDate: "2020-03-11"
+description: "I just don't care (In A Good Way) anymore"
+tags: ["music"]
 ---
 
 ```

@@ -1,6 +1,8 @@
 ---
 title: "除了 SSL Pining 还有什么方法防止抓包?"
 publishDate: "2020-11-23"
+description: "除了 SSL Pining 还有什么方法防止抓包?"
+tags: ["http", "hack", "dev"]
 ---
 
 不做代码已久, 先盲写一段 HTTPS 验证过程来验证我的基本功:

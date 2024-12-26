@@ -1,6 +1,8 @@
 ---
 title: "mac启动项"
 publishDate: "2018-10-08"
+description: "mac启动项"
+tags: ["mac"]
 ---
 
 ## Login Items

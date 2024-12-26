@@ -1,6 +1,8 @@
 ---
 title: "Vimrc"
 publishDate: "2018-08-27"
+description: "My Vimrc"
+tags: ["vim"]
 ---
 
 

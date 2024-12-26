@@ -1,6 +1,8 @@
 ---
 title: "Iterative-Development"
 publishDate: "2018-07-26"
+description: "Iterative development"
+tags: ["dev"]
 ---
 
 > **iOS Apprentice** page 320

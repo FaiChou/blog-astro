@@ -1,6 +1,8 @@
 ---
 title: "Immutable"
 publishDate: "2017-09-05"
+description: "ImmutableJS"
+tags: ["javascript", "dev"]
 ---
 
 

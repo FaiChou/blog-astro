@@ -1,6 +1,9 @@
 ---
 title: "How useEffect memorize states"
 publishDate: "2022-02-24"
+description: "react useEffect memorize states"
+tags: ["react", "dev", "javascript"]
+
 ---
 
 直接上最终的代码:

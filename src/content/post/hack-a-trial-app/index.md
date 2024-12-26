@@ -1,6 +1,8 @@
 ---
 title: "Hack a Trial Mac APP"
 publishDate: "2020-02-25"
+description: "破解免费试用APP的一种方法"
+tags: ["mac", "dev", "hack"]
 ---
 
 ## 前言

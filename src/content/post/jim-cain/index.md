@@ -1,6 +1,8 @@
 ---
 title: "Jim Cain"
 publishDate: "2017-05-30"
+description: "Jim Cain"
+tags: ["music"]
 ---
 
 ------

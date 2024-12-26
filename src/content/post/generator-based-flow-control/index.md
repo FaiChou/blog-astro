@@ -1,6 +1,8 @@
 ---
 title: "co函数的理解"
 publishDate: "2020-01-10"
+description: "co 函数的理解"
+tags: ["javascript", "dev"]
 ---
 
 [tj/co](https://github.com/tj/co) 是一个 generator 自执行的状态管理库, 短短的几百行代码即收获了 11k 的 star, 其实 generator 自执行也是 [redux-saga](https://github.com/redux-saga/redux-saga/) 的核心, 精简代码如下:

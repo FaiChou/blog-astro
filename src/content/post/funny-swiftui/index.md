@@ -1,6 +1,8 @@
 ---
 title: "Funny SwiftUI"
 publishDate: "2023-02-23"
+description: "Funny SwiftUI"
+tags: ["swift", "swiftui", "dev"]
 ---
 
 开发 SwiftUI 应用有一段时间了, 感觉完全没有像 js 那样的动态语言灵活, Swift 写起来感觉是在推车, 而 js 写起来是在开车. 写的时候不是在抱怨 Swift 难用就是在抱怨 Xcode 垃圾!

@@ -1,6 +1,8 @@
 ---
 title: "Functions"
 publishDate: "2021-10-29"
+description: "函数的执行过程"
+tags: ["c", "dev"]
 ---
 
 在学习用 C 写一个 Lisp 解释器的过程中, 学到 Functions 这一章节, 明白了函数是如何被执行的, 对其内存结构也有了一定的认知.

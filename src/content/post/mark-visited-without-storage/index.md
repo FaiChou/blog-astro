@@ -1,6 +1,8 @@
 ---
 title: "不使用本地存储如何记住用户看到多少集"
 publishDate: "2019-04-03"
+description: "不使用本地存储如何记住用户看到多少集"
+tags: ["javascript", "html", "dev"]
 ---
 
 有这样一个看美剧的[网站](https://91mjw.com/video/1295.htm), 有个功能非常妙, 可以记住用户看到多少集

@@ -1,12 +1,15 @@
 ---
-title: "Linux下3个新快捷键"
+title: "Linux下4个新快捷键"
 publishDate: "2021-02-14"
+description: "Linux下4个新快捷键"
+tags: ["linux", "devops"]
 ---
 
 ```
 ctrl h: delete the preceding character
 ctrl w: delete the preceding word
-ctrl u: delete line
+ctrl u: delete line (left)
+ctrl k: delete line (right)
 ```
 
 这三个快捷键在 Vim 的插入模式下也可以使用.

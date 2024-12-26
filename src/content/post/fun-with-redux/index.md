@@ -1,6 +1,8 @@
 ---
 title: "Fun with Redux"
+description: "Fun with Redux"
 publishDate: "2019-12-08"
+tags: ["react", "redux", "javascript", "dev"]
 ---
 
 ![before](before.png)

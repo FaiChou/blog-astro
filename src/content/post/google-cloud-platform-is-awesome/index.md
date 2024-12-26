@@ -1,6 +1,8 @@
 ---
 title: "架设一架谷歌小飞机"
 publishDate: "2018-10-16"
+description: "架设一架谷歌小飞机"
+tags: ["clash", "devops"]
 ---
 
 

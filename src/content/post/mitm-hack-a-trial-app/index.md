@@ -1,6 +1,8 @@
 ---
 title: "AnyProxy 和 mitmproxy 的使用"
 publishDate: "2020-02-28"
+description: "AnyProxy 和 mitmproxy 的使用"
+tags: ["mac", "dev", "hack"]
 ---
 
 > 代码在[这里](https://github.com/FaiChou/hack-app-by-mitm)

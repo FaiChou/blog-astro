@@ -1,6 +1,8 @@
 ---
 title: "Git Commit Message Conventions"
 publishDate: "2020-03-13"
+description: "Git Commit Message Conventions"
+tags: ["git", "dev"]
 ---
 
 ## 规范

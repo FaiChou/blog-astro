@@ -1,6 +1,8 @@
 ---
 title: "Grid Layout"
 publishDate: "2018-12-14"
+description: "CSS Grid Layout"
+tags: ["css", "dev"]
 ---
 
 ## Grid

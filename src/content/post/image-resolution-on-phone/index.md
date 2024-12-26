@@ -1,6 +1,9 @@
 ---
 title: "Image resolution on phone"
 publishDate: "2018-09-05"
+description: "Image resolution on phone"
+tags: ["ios"]
+
 ---
 
 ## 图像简介

@@ -1,6 +1,8 @@
 ---
 title: "gitignore递归排除某类文件夹"
 publishDate: "2018-05-10"
+description: "gitignore递归排除某类文件夹"
+tags: ["git", "dev"]
 ---
 
 #### 问题描述

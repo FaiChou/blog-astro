@@ -1,6 +1,8 @@
 ---
 title: "那些年写过的异步函数"
 publishDate: "2019-04-11"
+description: "那些年写过的异步函数"
+tags: ["dev", "javascript"]
 ---
 
 ```javascript
