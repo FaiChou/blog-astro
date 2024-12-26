@@ -1,9 +1,12 @@
 ---
-title: Hello, Welcome
-description: An introduction to using the note feature in Astro Cactus
-publishDate: "2024-10-14T11:23:00Z"
+title: yazi 配置
+description: 配置 yazi
+publishDate: "2024-12-26T11:23:00Z"
 ---
 
-Hi, Hello. This is an example note feature included with Astro Cactus.
+在 ~/.config/yazi/yazi.toml 中配置:
 
-They're for shorter, concise "post's" that you'd like to share, they generally don't include headings, but hey, that's entirely up to you.
+```toml
+[manager]
+show_hidden = true
+```
