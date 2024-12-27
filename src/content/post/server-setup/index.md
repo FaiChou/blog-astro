@@ -15,9 +15,9 @@ vi /etc/hosts # 将 127.0.1.1 旧主机名 改为 127.0.1.1 新主机名
 
 添加 ssh public keys 到 /root/.ssh/authorized_keys
 
-修改 /etc/ssh/sshd_config
 
-```
+```bash
+# /etc/ssh/sshd_config
 PubkeyAuthentication yes
 PermitRootLogin prohibit-password
 ```
@@ -26,7 +26,7 @@ PermitRootLogin prohibit-password
 
 ## 3. 配置 zsh & oh-my-zsh
 
-```
+```bash
 apt update
 apt install -y zsh
 apt install -y curl
@@ -39,7 +39,8 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 
 ## 4. 配置 .zshrc
 
-```
+```bash
+# .zshrc
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -62,12 +63,13 @@ export LS_OPTIONS='--color=auto'
 alias vi="vim"
 ```
 
-`source ~/.zshrc`
+最后别忘记 `source ~/.zshrc`
 
 
 ## 5. 配置 .vimrc
 
-```
+```bash
+# .vimrc
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
@@ -91,9 +93,10 @@ set updatetime=300
 
 ## 6. 配置 .tmux.conf
 
-`apt install -y tmux`
+安装 tmux: `apt install -y tmux`
 
-```
+```bash
+# .tmux.conf
 unbind C-b
 set -g prefix C-a
 bind C-a send-prefix

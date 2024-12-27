@@ -6,23 +6,23 @@ tags: ["vim"]
 ---
 
 
-```
-$ alias vi="nvim"
+```bash
+alias vi="nvim"
 ```
 
 ## Install NeoVIM
 
-```
-$ brew install neovim
+```bash
+brew install neovim
 ```
 
 ## Install some dependencies
 
-```
-$ brew install lazygit
-$ brew install ripgrep
-$ brew tap homebrew/cask-fonts
-$ brew install font-hack-nerd-font
+```bash
+brew install lazygit
+brew install ripgrep
+brew tap homebrew/cask-fonts
+brew install font-hack-nerd-font
 ```
 
 Also need set the iTerm2 font to `font-hack-nerd-font`.
@@ -124,8 +124,8 @@ Escape some vim shortcuts..
 
 ## My set
 
-```
-// plugins/neotree.lua
+```bash
+# plugins/neotree.lua
 return {
   "nvim-neo-tree/neo-tree.nvim",
   opts = {
@@ -137,9 +137,10 @@ return {
   },
 }
 ```
+---
 
-```
-// config/keymaps.lua
+```bash
+# config/keymaps.lua
 local map = vim.keymap.set
 map("i", "<C-f>", "<right>", { desc = "go forward" })
 map("i", "<C-b>", "<left>", { desc = "go backward" })
@@ -148,9 +149,10 @@ map("i", "<C-p>", "<up>", { desc = "go up a line" })
 map("i", "<C-e>", "<esc>A", { desc = "go to line end" })
 map("i", "<C-d>", "<right><bs>", { desc = "delete back a character" })
 ```
+---
 
-```
-// config/options.lua
+```bash
+# config/options.lua
 local opt = vim.opt
 opt.relativenumber = false
 ```
