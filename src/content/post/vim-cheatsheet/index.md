@@ -1,6 +1,8 @@
 ---
 title: "vim cheatsheet"
 publishDate: "2018-06-04"
+description: "vim cheatsheet"
+tags: ["vim"]
 ---
 
 ## 目录

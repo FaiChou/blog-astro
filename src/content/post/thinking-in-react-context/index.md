@@ -1,6 +1,8 @@
 ---
 title: "Thinking in React Context API"
 publishDate: "2022-02-25"
+description: "Thinking in React Context API"
+tags: ["react", "dev", "javascript"]
 ---
 
 https://reactjs.org/docs/context.html

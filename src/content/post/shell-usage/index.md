@@ -1,6 +1,8 @@
 ---
 title: "shell cheatsheet"
 publishDate: "2018-06-22"
+description: "shell cheatsheet"
+tags: ["shell", "dev", "script", "devops"]
 ---
 
 ## 执行shell

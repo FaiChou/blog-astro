@@ -1,6 +1,8 @@
 ---
 title: "Trie 数据结构的递归删除逻辑"
 publishDate: "2023-10-10"
+description: "Trie 数据结构的递归删除逻辑"
+tags: ["algorithm", "dev", "c"]
 ---
 
 有问题的源码在这里: https://github.com/FaiChou/c-tutorial/blob/main/trie.c#L51

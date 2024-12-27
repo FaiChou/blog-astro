@@ -1,6 +1,8 @@
 ---
 title: "Socket编程"
 publishDate: "2023-09-15"
+description: "Socket编程"
+tags: ["dev", "c", "http"]
 ---
 
 ## sockfd = socket(AF_INET, SOCK_STREAM, 0)

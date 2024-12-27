@@ -1,6 +1,8 @@
 ---
 title: "Python装饰器"
 publishDate: "2017-12-01"
+description: "Python 装饰器"
+tags: ["dev", "python"]
 ---
 
 

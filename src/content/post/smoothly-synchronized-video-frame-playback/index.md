@@ -1,6 +1,8 @@
 ---
-title: "How video frames play in smooth synchronization with the audio track"
+title: "How video frames play in smoothly"
 publishDate: "2024-03-04"
+description: "How video frames play in smooth synchronization with the audio track"
+tags: ["ffmpeg", "dev"]
 ---
 
 在做播放器的过程中，音视频的同步是一个挑战，也就是视频帧的渲染跟上音频播放的步伐。尽管视频帧都有固定的 PTS，按照这个 PTS 来一直播放就可以了吗？

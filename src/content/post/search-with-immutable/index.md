@@ -1,6 +1,8 @@
 ---
 title: "Immutable模糊搜索"
 publishDate: "2017-09-05"
+description: "immutable js"
+tags: ["javascript", "dev"]
 ---
 
 ### 情景

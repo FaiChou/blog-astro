@@ -1,6 +1,8 @@
 ---
 title: "html里列表滑动删除的实现如此简单"
 publishDate: "2019-01-04"
+description: "html里列表滑动删除"
+tags: ["html", "javascript", "dev"]
 ---
 
 ## 预览

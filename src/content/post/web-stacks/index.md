@@ -1,9 +1,9 @@
 ---
 title: "WebStack"
 publishDate: "2017-07-21"
+description: "React 从入门到放弃！"
+tags: ["react"]
 ---
-
-> React 从入门到放弃！
 
 - html
 - css/scss

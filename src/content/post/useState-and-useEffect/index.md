@@ -1,6 +1,8 @@
 ---
 title: "useState & useEffect"
 publishDate: "2022-02-14"
+description: "react useState & useEffect"
+tags: ["react", "dev", "javascript"]
 ---
 
 发现了一个对 `React + useState + useHooks` 的[简单实现](https://medium.com/swlh/learn-by-implementing-reacts-usestate-and-useeffect-a-simplified-overview-ea8126705a88):

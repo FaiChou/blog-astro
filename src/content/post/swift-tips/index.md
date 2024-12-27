@@ -1,6 +1,8 @@
 ---
 title: "Swift Tips"
 publishDate: "2017-07-03"
+description: "Swift Tips"
+tags: ["swift"]
 ---
 
 ### 1.  "Implicitly Unwrapped" Optional

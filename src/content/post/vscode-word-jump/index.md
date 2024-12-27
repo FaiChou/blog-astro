@@ -1,6 +1,8 @@
 ---
 title: "VSCode Word Jump"
 publishDate: "2019-11-19"
+description: "VSCode Word Jump"
+tags: ["vscode"]
 ---
 
 习惯了 emacs 的操作快捷键, 码字敲代码时候不习惯挪动双手, 即便是去按一个方向键也要抬起右手, 太费劲了.

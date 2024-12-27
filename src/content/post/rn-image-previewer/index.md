@@ -1,6 +1,8 @@
 ---
 title: "create a react native image previewer"
 publishDate: "2018-05-05"
+description: "create a react native image previewer"
+tags: ["react-native", "react", "dev", "javascript"]
 ---
 
 ## [ImagePreviewer](https://github.com/FaiChou/ImagePreviewer) -- `A react native image previewer !`

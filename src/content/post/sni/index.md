@@ -1,6 +1,8 @@
 ---
 title: "SNI"
 publishDate: "2023-03-15"
+description: "SNI"
+tags: ["devops", "nginx", "http"]
 ---
 
 在 TCP 握手时, 本机和服务器 IP 之间建立联系, 如果是 HTTPS, 则需要增加验证证书的步骤.

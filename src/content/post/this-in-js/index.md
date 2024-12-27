@@ -1,10 +1,10 @@
 ---
-layout: post
-title: "`This` in js"
+title: "Javascript 中的 This"
 publishDate: "2019-04-24"
+description: "Javascript 中的 This"
+tags: ["javascript"]
 ---
 
----
 
 ```javascript
 var obj = {

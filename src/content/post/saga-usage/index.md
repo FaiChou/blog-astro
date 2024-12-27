@@ -1,6 +1,8 @@
 ---
 title: "saga"
 publishDate: "2018-12-01"
+description: "redux saga"
+tags: ["javascript", "dev", "react", "redux"]
 ---
 
 ## Before

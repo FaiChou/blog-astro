@@ -1,6 +1,8 @@
 ---
 title: "setImmediate() vs nextTick() vs setTimeout(fn,0) – in depth explanation"
 publishDate: "2019-09-24"
+description: "setImmediate() vs nextTick() vs setTimeout(fn,0) – in depth explanation"
+tags: ["node", "javascript", "dev"]
 ---
 
 [原文地址](http://voidcanvas.com/setimmediate-vs-nexttick-vs-settimeout/)

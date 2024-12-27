@@ -1,6 +1,9 @@
 ---
 title: "rsync"
 publishDate: "2019-07-22"
+description: "rsync is a tool for remote file copy"
+tags: ["linux", "devops"]
+
 ---
 
 

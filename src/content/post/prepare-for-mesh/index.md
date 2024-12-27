@@ -1,6 +1,8 @@
 ---
 title: "Mesh 组网的一些知识点"
 publishDate: "2021-02-18"
+description: "Mesh 组网"
+tags: ["life"]
 ---
 
 如果房子够大, 墙面够厚, 就需要多买一个路由器来增强信号.

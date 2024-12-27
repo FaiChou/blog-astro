@@ -1,6 +1,8 @@
 ---
 title: "Linux下硬链接与软链接"
 publishDate: "2017-06-25"
+description: "Linux下硬链接与软链接"
+tags: ["linux"]
 ---
 
 ### linux下硬链接与软链接

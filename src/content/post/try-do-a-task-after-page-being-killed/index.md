@@ -1,7 +1,8 @@
 ---
-layout: post
 title: "页面杀死后可以执行代码吗?"
 publishDate: "2019-07-29"
+description: "页面杀死后可以执行代码吗?"
+tags: ["javascript"]
 ---
 
 设想一个场景, 在一个非 SPA 页面里, 如何做到 B 页面被释放后仍可执行一段代码?

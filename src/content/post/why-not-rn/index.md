@@ -1,6 +1,8 @@
 ---
 title: "Why Not RN"
 publishDate: "2018-09-19"
+description: "Why Not RN"
+tags: ["react-native"]
 ---
 
 RN的使用已经到了瓶颈, 劣势愈发明显.

@@ -1,6 +1,9 @@
 ---
 title: "Sublime And VSCode Configuration"
 publishDate: "2017-08-24"
+description: "Sublime 和 VSCode 的配置"
+tags: ["mac"]
+
 ---
 
 ### Sublime Setting-User

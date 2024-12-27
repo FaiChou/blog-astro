@@ -1,6 +1,8 @@
 ---
 title: "Server Setup"
 publishDate: "2024-12-21"
+description: "server setup"
+tags: ["linux", "devops"]
 ---
 
 ## 1. 修改主机名

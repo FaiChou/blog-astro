@@ -1,6 +1,8 @@
 ---
-title: "快速生成markdown图片地址"
+title: "使用 Alfred 快速生成markdown图片地址"
 publishDate: "2018-10-11"
+description: "使用 Alfred Workflow 快速生成markdown图片地址"
+tags: ["mac"]
 ---
 
 ## 需求
@@ -35,7 +37,7 @@ publishDate: "2018-10-11"
 
 #### 依赖库
 
-```  python
+```python
 import os
 import tempfile
 import imghdr

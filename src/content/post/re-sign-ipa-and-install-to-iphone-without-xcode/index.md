@@ -1,6 +1,8 @@
 ---
 title: "重签名ipa并安装到iPhone(不用Xcode)"
 publishDate: "2021-02-17"
+description: "重签名ipa并安装到iPhone(不用Xcode)"
+tags: ["ios", "dev"]
 ---
 
 拿到一个 ipa 文件, 对其重签名, 使用的工具是这个: https://www.iosappsigner.com/.

@@ -1,6 +1,8 @@
 ---
 title: "升级RN的代价"
 publishDate: "2018-05-19"
+description: "升级RN的代价"
+tags: ["react-native"]
 ---
 
 ## ReactNative项目的version变化过程

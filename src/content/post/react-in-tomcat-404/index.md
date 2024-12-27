@@ -1,6 +1,8 @@
 ---
 title: "SPA放到tomcat刷新404"
 publishDate: "2018-11-15"
+description: "SPA放到tomcat刷新404"
+tags: ["react", "devops", "dev"]
 ---
 
 ## 起因

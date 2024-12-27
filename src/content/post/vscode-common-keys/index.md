@@ -1,6 +1,8 @@
 ---
 title: "VSCode Common Key"
 publishDate: "2017-08-24"
+description: "VSCode Common Key"
+tags: ["vscode"]
 ---
 
 | 符号   | 说明              |

@@ -1,6 +1,8 @@
 ---
 title: "v2ray"
 publishDate: "2019-09-19"
+description: "v2ray"
+tags: ["clash", "mac"]
 ---
 
 ss再次被攻陷, 这次新建的也会立马被ban, 所以换一种方式, 使用 v2ray.

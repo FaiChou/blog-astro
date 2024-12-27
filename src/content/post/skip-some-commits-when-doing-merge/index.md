@@ -1,6 +1,8 @@
 ---
 title: "Skip Some Commits When Doing Merge"
 publishDate: "2019-03-05"
+description: "Skip Some Commits When Doing Merge"
+tags: ["git"]
 ---
 
 <img src="https://raw.githubusercontent.com/FaiChou/faichou.github.io/master/img/1551792746051.png" width="600" />
