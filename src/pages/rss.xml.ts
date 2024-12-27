@@ -5,7 +5,6 @@ import { collectionDateSort } from "@/utils/date";
 
 export const GET = async () => {
 	const posts = await getAllPosts();
-	// const sorted = posts.sort
 	const allPostsByDate = posts.sort(collectionDateSort)
 	return rss({
 		title: siteConfig.title,
