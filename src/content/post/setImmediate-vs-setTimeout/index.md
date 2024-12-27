@@ -1,7 +1,7 @@
 ---
-title: "setImmediate() vs nextTick() vs setTimeout(fn,0) – in depth explanation"
-publishDate: "2019-09-24"
+title: "setImmediate() vs nextTick() vs setTimeout(fn,0)"
 description: "setImmediate() vs nextTick() vs setTimeout(fn,0) – in depth explanation"
+publishDate: "2019-09-24"
 tags: ["node", "javascript", "dev"]
 ---
 
