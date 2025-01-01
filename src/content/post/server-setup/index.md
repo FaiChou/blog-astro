@@ -11,7 +11,24 @@ tags: ["linux", "devops"]
 
 vi /etc/hosts # 将 127.0.1.1 旧主机名 改为 127.0.1.1 新主机名
 
-## 2. 配置 ssh
+## 2. 更改镜像源
+
+```bash
+# /etc/apt/sources.list
+
+deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free
+deb-src http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free
+
+deb http://security.debian.org/debian-security bookworm-security main contrib non-free
+deb-src http://security.debian.org/debian-security bookworm-security main contrib non-free
+
+deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware
+deb-src http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware
+```
+
+然后执行 `apt update` 和 `apt upgrade`。
+
+## 3. 配置 ssh
 
 添加 ssh public keys 到 /root/.ssh/authorized_keys
 
@@ -24,7 +41,7 @@ PermitRootLogin prohibit-password
 
 重启 `systemctl restart sshd`
 
-## 3. 配置 zsh & oh-my-zsh
+## 4. 配置 zsh & oh-my-zsh
 
 ```bash
 apt update
@@ -37,7 +54,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 ```
 
-## 4. 配置 .zshrc
+## 5. 配置 .zshrc
 
 ```bash
 # .zshrc
@@ -66,7 +83,7 @@ alias vi="vim"
 最后别忘记 `source ~/.zshrc`
 
 
-## 5. 配置 .vimrc
+## 6. 配置 .vimrc
 
 ```bash
 # .vimrc
@@ -91,7 +108,7 @@ set timeoutlen=500
 set updatetime=300
 ```
 
-## 6. 配置 .tmux.conf
+## 7. 配置 .tmux.conf
 
 安装 tmux: `apt install -y tmux`
 
@@ -136,4 +153,86 @@ bind -T copy-mode-vi v send-keys -X begin-selection
 bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -selection clipboard -i"
 
 set -g history-limit 10000
+```
+
+## 8. 安装常用工具
+
+```shell
+#check_tools.sh
+#!/bin/bash
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m'
+
+tools=(
+  bash coreutils findutils tar gzip bzip2 xz-utils
+  iproute2 net-tools curl wget openssh-client traceroute
+  apt dpkg gnupg2
+  mount util-linux parted dosfstools e2fsprogs
+  rsyslog journalctl dmesg lsof strace
+  zip unzip p7zip-full
+  nano vim less more
+  cron at ntpdate
+  passwd adduser sudo
+)
+
+echo -e "Checking installed tools...\n"
+for tool in "${tools[@]}"; do
+  if command -v "$tool" >/dev/null 2>&1; then
+    echo -e "${GREEN}$tool: Installed${NC}"
+  else
+    echo -e "${RED}$tool: Not Installed${NC}"
+  fi
+done
+```
+
+执行上面的命令，查看哪些未安装，然后补充安装一下。
+
+## 9. 推荐几个好用工具
+
+```bash
+apt install -y btop
+apt install -y vnstat
+apt install -y duf
+```
+
+以及 nezha agent, [yazi](https://yazi-rs.github.io/), [tailscale](https://tailscale.com/kb/1174/install-debian-bookworm)。
+
+## 10. locale 以及时区问题
+
+使用 `locale` 检查 `LANGUAGE=en_US` `LANG=en_US.UTF-8` 等。
+
+使用 `date` 检查时区，修改成 `Asia/Shanghai`:
+
+```bash
+$ date
+Sat Dec 28 08:23:50 PM EST 2024
+$ timedatectl
+               Local time: Sat 2024-12-28 20:24:18 EST
+           Universal time: Sun 2024-12-29 01:24:18 UTC
+                 RTC time: Sun 2024-12-29 01:24:17
+                Time zone: US/Eastern (EST, -0500)
+System clock synchronized: no
+              NTP service: n/a
+          RTC in local TZ: no
+
+$ timedatectl set-timezone Asia/Shanghai
+$ timedatectl
+               Local time: Sun 2024-12-29 09:24:52 CST
+           Universal time: Sun 2024-12-29 01:24:52 UTC
+                 RTC time: Sun 2024-12-29 01:24:52
+                Time zone: Asia/Shanghai (CST, +0800)
+
+$ ls -l /etc/localtime
+lrwxrwxrwx 1 root root 35 Dec 29 09:24 /etc/localtime -> ../usr/share/zoneinfo/Asia/Shanghai
+
+ $ cat /etc/timezone
+US/Eastern
+$ vi /etc/timezone
+$ dpkg-reconfigure -f noninteractive tzdata
+
+Current default time zone: 'Asia/Shanghai'
+Local time is now:      Sun Dec 29 09:26:23 CST 2024.
+Universal Time is now:  Sun Dec 29 01:26:23 UTC 2024.
 ```
