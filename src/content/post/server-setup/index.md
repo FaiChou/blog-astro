@@ -203,11 +203,9 @@ apt install -y duf
 
 使用 `locale` 检查 `LANGUAGE=en_US` `LANG=en_US.UTF-8` 等。
 
-使用 `date` 检查时区，修改成 `Asia/Shanghai`:
+使用 `timedatectl` 检查时区，修改成 `Asia/Shanghai`:
 
 ```bash
-$ date
-Sat Dec 28 08:23:50 PM EST 2024
 $ timedatectl
                Local time: Sat 2024-12-28 20:24:18 EST
            Universal time: Sun 2024-12-29 01:24:18 UTC
@@ -235,4 +233,29 @@ $ dpkg-reconfigure -f noninteractive tzdata
 Current default time zone: 'Asia/Shanghai'
 Local time is now:      Sun Dec 29 09:26:23 CST 2024.
 Universal Time is now:  Sun Dec 29 01:26:23 UTC 2024.
+```
+
+安装 ntp 等工具:
+
+```bash
+apt install systemd-timesyncd -y
+apt install ntp -y
+systemctl enable systemd-timesyncd
+systemctl enable ntp
+systemctl start systemd-timesyncd
+systemctl start ntp
+timedatectl set-ntp true
+```
+
+然后再用 `timedatectl status` 检查:
+
+```
+ $ timedatectl status
+               Local time: Wed 2025-01-01 22:01:28 CST
+           Universal time: Wed 2025-01-01 14:01:28 UTC
+                 RTC time: Wed 2025-01-01 14:01:28
+                Time zone: Asia/Shanghai (CST, +0800)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
 ```
