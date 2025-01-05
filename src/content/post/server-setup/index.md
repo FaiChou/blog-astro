@@ -49,6 +49,7 @@ apt install -y zsh
 apt install -y curl
 apt install -y git
 apt install -y vim
+apt install -y fzf
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -64,7 +65,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="aussiegeek"
-plugins=(git z zsh-autosuggestions)
+plugins=(git z zsh-autosuggestions fzf)
 source $ZSH/oh-my-zsh.sh
 
 export LANG=en_US.UTF-8
