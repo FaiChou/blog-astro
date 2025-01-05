@@ -216,18 +216,13 @@ System clock synchronized: no
           RTC in local TZ: no
 
 $ timedatectl set-timezone Asia/Shanghai
-$ timedatectl
-               Local time: Sun 2024-12-29 09:24:52 CST
-           Universal time: Sun 2024-12-29 01:24:52 UTC
-                 RTC time: Sun 2024-12-29 01:24:52
-                Time zone: Asia/Shanghai (CST, +0800)
 
 $ ls -l /etc/localtime
 lrwxrwxrwx 1 root root 35 Dec 29 09:24 /etc/localtime -> ../usr/share/zoneinfo/Asia/Shanghai
 
  $ cat /etc/timezone
 US/Eastern
-$ vi /etc/timezone
+$ vi /etc/timezone # 修改为 Asia/Shanghai
 $ dpkg-reconfigure -f noninteractive tzdata
 
 Current default time zone: 'Asia/Shanghai'
@@ -238,13 +233,11 @@ Universal Time is now:  Sun Dec 29 01:26:23 UTC 2024.
 安装 ntp 等工具:
 
 ```bash
-apt install systemd-timesyncd -y
-apt install ntp -y
-systemctl enable systemd-timesyncd
-systemctl enable ntp
-systemctl start systemd-timesyncd
-systemctl start ntp
-timedatectl set-ntp true
+apt install chrony -y
+systemctl enable chrony.service
+systemctl start chrony.service
+systemctl status chrony.service
+chronyc tracking
 ```
 
 然后再用 `timedatectl status` 检查:
