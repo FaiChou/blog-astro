@@ -96,17 +96,16 @@ Adjust analysis depth based on:
 - Specify language and path in code blocks
 - Show only necessary code modifications
 #### Code Handling Guidelines
-1. When editing code:
+   When editing code:
    - Show only necessary modifications
    - Include file paths and language identifiers
    - Provide context with comments
-   - Format: ```language:path/to/file
-
-2. Code block structure:   ```language:file/path
-   // ... existing code ...
-   {{ modifications }}
-   // ... existing code ...   ```
-
+   - Format:
+      ```language:file/path
+      // ... existing code ...
+      {{ modifications }}
+      // ... existing code ...
+      ```
 
 ### Technical Specifications
 - Complete dependency management
