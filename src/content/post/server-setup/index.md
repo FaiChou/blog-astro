@@ -16,14 +16,14 @@ vi /etc/hosts # 将 127.0.1.1 旧主机名 改为 127.0.1.1 新主机名
 ```bash
 # /etc/apt/sources.list
 
-deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free
-deb-src http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free
+deb http://mirrors.tuna.tsinghua.edu.cn/debian bookworm main contrib non-free
+deb-src http://mirrors.tuna.tsinghua.edu.cn/debian bookworm main contrib non-free
 
-deb http://security.debian.org/debian-security bookworm-security main contrib non-free
-deb-src http://security.debian.org/debian-security bookworm-security main contrib non-free
+deb http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware
+deb-src http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware
 
-deb http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware
-deb-src http://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware
+deb http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-updates main contrib non-free
+deb-src http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-updates main contrib non-free
 ```
 
 然后执行 `apt update` 和 `apt upgrade`。
