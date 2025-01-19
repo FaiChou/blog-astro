@@ -18,7 +18,7 @@ tags: ["linux", "devops"]
 
 然后使用 `mkfs.fat -F32 /dev/sda1` 格式化 EFI 分区，`mkfs.ext4 /dev/sda2` 格式化根分区，`mkswap /dev/sda3` 格式化交换分区，然后使用 `swapon /dev/sda3` 启用。
 
-最后使用 `mount /dev/sda2 /mnt` 将根分区挂载到 /mnt 下，然后使用 `mkdir -p /mnt/boot/efi` 创建 EFI 分区挂载点，并使用 `mount /dev/sda1 /mnt/boot/efi` 挂载 EFI 分区。接下来使用 `pacstrap /mnt base linux linux-firmware` 安装基本系统，然后使用 `genfstab -U /mnt >> /mnt/etc/fstab` 生成文件系统表。最后使用 `arch-chroot /mnt` 进入新系统环境，继续配置时区、语言、网络和引导程序。
+最后使用 `mount /dev/sda2 /mnt` 将根分区挂载到 /mnt 下，然后使用 `mkdir -p /mnt/boot/efi` 创建 EFI 分区挂载点，并使用 `mount /dev/sda1 /mnt/boot/efi` 挂载 EFI 分区。接下来使用 `pacstrap /mnt base linux linux-firmware` 安装基本系统，然后使用 `genfstab -U /mnt >> /mnt/etc/fstab` 生成文件系统表。最后使用 `arch-chroot /mnt` 进入新系统环境，继续配置时区、语言、网络（dhcpcd）和引导程序。
 
 
 ## 引导程序
