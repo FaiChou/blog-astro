@@ -99,7 +99,7 @@ patch:
   preset_color_schemes:
     wechat_light:
       name: 微信键盘浅色
-      horizontal: true                          # true横排，false竖排
+      candidate_list_layout: linear             # 横排
       back_color: 0xFFFFFF                      # 候选条背景色
       border_height: 0                          # 窗口上下高度，大于圆角半径才生效
       border_width: 8                           # 窗口左右宽度，大于圆角半径才生效
@@ -116,7 +116,7 @@ patch:
       inline_preedit: true                      # 拼音位于： 候选框 false | 行内 true
     wechat_dark:
       name: 微信键盘深色
-      horizontal: true                          # true横排，false竖排
+      candidate_list_layout: linear             # 横排
       back_color: 0x2e2925                      # 候选条背景色
       border_height: 0                          # 窗口上下高度，大于圆角半径才生效
       border_width: 8                           # 窗口左右宽度，大于圆角半径才生效
