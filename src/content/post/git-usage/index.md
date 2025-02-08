@@ -77,12 +77,16 @@ $ git branch -a -v # see branch with commit
 $ git checkout master # change to master branch
 $ git checkout -b new_branch # create new branch
 $ git branch new_branch && git checkout new_branch # same above
-$ git push -u origin new_branch # push to origin
+$ git push origin new_branch # push to origin
+$ git push -u origin new_branch # push to origin and set upstream
 
 $ git branch -d feature/login # delete local
 $ git push origin --delete feature/login # delete origin
 
-$ git fetch && git checkout new_branch # checkout remote branch
+$ git fetch && git checkout -b new_branch origin/new_branch # checkout remote branch
+$ git fetch && git checkout dev # same above
+branch 'dev' set up to track 'origin/dev'.
+Switched to a new branch 'dev'
 ```
 
 Create branch based on old commit
@@ -92,19 +96,6 @@ $ git checkout 1a08cbf
 $ git branch new_branch
 
 $ git branch new_branch 1a08cbf # same above
-```
-
-checkout remote branch
-
-```bash
-$ git fetch
-$ git checkout new_branch
-
-# or
-$ git checkout -b test <name_of_remote>/test
-
-# or
-$ git checkout -t <name_of_remote>/test
 ```
 
 
@@ -232,6 +223,8 @@ $ git show
 $ git checkout master
 $ git merge dev # merge dev to master
 $ git branch -d dev
+$ git push origin --delete dev # delete remote branch
+$ git push origin master # push to origin
 ```
 
 ### Rebase
