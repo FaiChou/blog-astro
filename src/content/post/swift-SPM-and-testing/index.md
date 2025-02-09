@@ -173,6 +173,7 @@ func mentionedContinentCounts(videoName: String) async throws {
 
 Swift Testing 比之前的 XCTest 更简单，XCTest 有很多不同的 XCAssert 方法，而 Swift Testing 只需要 `#expect` 即可。Swift Testing 不需要使用 test 前缀来命名测试函数。
 
+## 参考
 
 - [Creating a standalone Swift package with Xcode](https://developer.apple.com/documentation/xcode/creating-a-standalone-swift-package-with-xcode)
 - [Meet Swift Testing - wwdc2024](https://developer.apple.com/videos/play/wwdc2024/10179/)
