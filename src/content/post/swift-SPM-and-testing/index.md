@@ -1,6 +1,6 @@
 ---
 title: Swift Package Manager and Testing
-publishDate: "2025-01-09"
+publishDate: "2025-02-09"
 description: "Swift Package Manager and Testing"
 tags: ["dev", "swift"]
 ---
