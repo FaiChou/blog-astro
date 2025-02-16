@@ -5,7 +5,7 @@ description: "Arch Linux 安装步骤"
 tags: ["linux", "devops"]
 ---
 
-在用 u 盘装 Arch Linux 系统时候，进入 u 盘的 live 系统后，需要将固态硬盘分区，首先要确定主板系统是不是支持 uefi, 一般现在主板都支持 uefi 的，很少有支持 legacy BIOS 的，传统 BIOS 仅支持 MBR 的硬盘分区。uefi 则支持 GPT 分区表。
+在用 u 盘装 Arch Linux 系统时候，进入 u 盘的 live 系统后，需要将固态硬盘分区，首先要确定主板系统是不是支持 uefi, 一般现在主板都支持 uefi 的，很少有仅支持 legacy BIOS 的，传统 BIOS 仅支持 MBR 的硬盘分区。uefi 则支持 GPT 分区表。
 
 使用 fdisk 分区硬盘时候，先使用 d 删掉已有的分区。删完之后用 g 创建一个 GPT 的分区表(partition table)，然后使用 n 创建分区。
 需要创建3个分区：
