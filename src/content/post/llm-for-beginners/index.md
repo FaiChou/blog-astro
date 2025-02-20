@@ -1,6 +1,6 @@
 ---
 title: "LLM for Beginners"
-publishDate: "2025-02-19"
+publishDate: "2025-02-20"
 description: "LLM for Beginners"
 tags: ["llm", "ai", "chatgpt", "deepseek"]
 ---
