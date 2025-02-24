@@ -144,6 +144,20 @@ int main() {
 
 具体的 I/O 多路复用可以看[这篇文章](https://www.xiaolincoding.com/os/8_network_system/selete_poll_epoll.html)。
 
+
+`lsof -i` 用来显示当前系统中所有打开的网络文件（network files），也就是与网络连接相关的文件描述符信息。具体来说，它会列出与网络套接字（socket）相关的进程信息。
+
+```
+$ lsof -i :8080
+COMMAND  PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+python  1234  user    3u  IPv4  56789      0t0  TCP 192.168.1.10:8080 (LISTEN)
+python  1234  user    4u  IPv4  56790      0t0  TCP 192.168.1.10:8080->10.0.0.5:54321 (ESTABLISHED)
+python  1234  user    5u  IPv4  56791      0t0  TCP 192.168.1.10:8080->172.16.0.8:65432 (ESTABLISHED)
+python  1234  user    6u  IPv4  56792      0t0  TCP 192.168.1.10:8080->8.8.8.8:12345 (ESTABLISHED)
+```
+
+上面可以看到 python 程序监听了 8080 端口，此时有 3 个外面的 ip 和这个 8080 端口建立了 TCP 连接。
+
 ## ss -tlnp
 
 ss 命令用于查看套接字统计信息的工具，它是 `netstat` 命令的现代替代品。平时使用的时候，一般会搭配 `watch` 来观测实时的连接信息，比如 `watch -n 2 ss -tuln`，这样每 2 秒会刷新一下连接信息, 毕竟有些请求断开就结束了，无法被实时统计到，可以搭配 `watch` 命令来实时查看。
@@ -179,13 +193,18 @@ tcp                 ESTAB               0                    46                 
 tcp                 ESTAB               0                    568                                192.168.11.117:56824                               54.xx.xx.147:https
 ```
 
-使用 `grep ':80'` 来显示 HTTP 相关的连接:
+使用 `grep ':8080'` 来显示 HTTP 相关的连接:
 
 ```
- $ ss -an | grep ':80'
-tcp   LAST-ACK 0      1                                                                          192.168.11.117:52092        45.xx.xx.144:80
-tcp   SYN-SENT 0      1                                                                          192.168.11.117:57802        45.xx.xx.233:80
+ $ ss tunap | grep ':8080'
+Netid  State      Recv-Q Send-Q  Local Address:Port   Peer Address:Port   Process
+tcp    ESTAB      0      0       192.168.1.10:8080   10.0.0.5:54321      users:(("python",pid=1234,fd=3))
+tcp    ESTAB      0      0       192.168.1.10:8080   172.16.0.8:65432    users:(("python",pid=1234,fd=4))
 ```
+
+可以看到此时建立了两个 TCP 连接。
+
+使用 `ss` 命令性能高且信息清晰，因为 `ss` 直接从内核读取数据，速度更快。`lsof -i` 需要扫描所有打开的文件描述符，效率较低。
 
 ## grpcurl
 
