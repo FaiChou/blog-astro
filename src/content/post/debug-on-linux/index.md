@@ -1,7 +1,7 @@
 ---
 title: "Debug on Linux"
 description: "The steps for debugging an unfamiliar program on Linux"
-publishDate: "2025-02-23"
+publishDate: "2025-02-24"
 tags: ["linux", "devops"]
 ---
 
