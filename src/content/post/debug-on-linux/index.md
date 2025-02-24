@@ -5,7 +5,7 @@ publishDate: "2025-02-24"
 tags: ["linux", "devops"]
 ---
 
-在 Linux 上可以方便的获取一个程序的信息，比如进程号、监听的端口、进程的执行路径等。你写的程序，运行的时候有一个 pid，可以打开读写一个文件，数据可能保存在内存中，也可能监听了某一个端口，别人可以通过网络协议和这个程序通信。可以通过下面的方法来获取这些信息。
+在 Linux 上可以方便的获取一个程序的信息，比如进程号、监听的端口、进程的执行路径等。你写的程序，运行的时候有一个 pid, 可以打开读写一个文件，数据可能保存在内存中，也可能监听了某一个端口, 别人可以通过网络协议和这个程序通信。可以通过下面的方法来获取这些信息。
 
 ## ps aux | grep name
 
@@ -45,14 +45,14 @@ nezha-age 2290 root    7u     IPv4            1265709      0t0      TCP epyc:400
 - CHR 字符设备：/dev/null
 - unix 代表 Unix 域套接字：本地通信
 - FIFO 命名管道：进程间通信
-- a_inode 代表内核对象：eventpoll
-- IPv4 是网络连接：TCP 连接
+- a_inode 代表内核对象: eventpoll
+- IPv4 是网络连接: TCP 连接
 
-也就是说，nezha-agent 这个程序是在 `/opt/nezha/agent` 目录下，启动脚本是 `nezha-agent`，它打开了 40044 端口，目前连接到 10.xxx.xxx.xxx:8008 地址。
+也就是说, nezha-agent 这个程序是在 `/opt/nezha/agent` 目录下，启动脚本是 `nezha-agent`，它打开了 40044 端口，目前连接到 10.xxx.xxx.xxx:8008 地址。
 
 `/dev/null` 是一个特殊的字符设备文件，代表着黑洞。向 `/dev/null` 写入的任何数据都会被丢弃，从 `/dev/null` 读取数据会立即返回 EOF, 不会有任何数据返回。在 Linux 上一般是把 stdout 和 stderr 重定向到 `/dev/null`，不向终端输出信息。
 
-Linux 上有两种管道通信，一种是匿名管道，另一种是命名管道。管道是用来进程间通信的，**内存中的数据传递**，比如 `ps aux | grep nezha` 就是一个匿名管道，`ps aux` 是父进程，`grep nezha` 是子进程，`ps aux` 将输出内容通过管道发送给了 `grep` 程序。命名管道对于无亲缘关系进程也可以使用，shell 中用的比较少，使用 mkfifo 创建（c语言也是用它）。
+Linux 上有两种管道通信，一种是匿名管道，另一种是命名管道。管道是用来进程间通信的，**内存中的数据传递**，比如 `ps aux | grep nezha` 就是一个匿名管道，`ps aux` 是父进程，`grep nezha` 是子进程，`ps aux` 将输出内容通过管道发送给了 `grep` 程序。命名管道对于无亲缘关系进程也可以使用, shell 中用的比较少，使用 mkfifo 创建(c语言也是用它)。
 
 epoll 是 Linux 提供的一种高效 I/O 事件通知机制，适合处理大量并发连接。可以通过下面例子来讲解：
 
@@ -138,14 +138,14 @@ int main() {
 }
 ```
 
-上面的程序使用 `epoll_create1(0)` 创建一个 epoll 实例，返回文件描述符 epfd。`epoll_ctl` 将监听 socket（sockfd）添加到 epoll 实例中，监听 EPOLLIN 事件（表示有数据可读，例如新连接）。`epoll_wait` 阻塞等待事件发生，返回就绪的文件描述符数量(nfds), `events` 数组存储就绪的事件信息。检查哪个文件描述符触发了事件（这里是新连接），用 accept 处理。
+上面的程序使用 `epoll_create1(0)` 创建一个 epoll 实例，返回文件描述符 epfd。`epoll_ctl` 将监听 socket(sockfd)添加到 epoll 实例中，监听 EPOLLIN 事件（表示有数据可读，例如新连接）。`epoll_wait` 阻塞等待事件发生，返回就绪的文件描述符数量(nfds), `events` 数组存储就绪的事件信息。检查哪个文件描述符触发了事件（这里是新连接），用 accept 处理。
 
-比如监听 10000 个客户端 socket，如果不用 epoll 比如使用多线程管理 socket 或者 select/poll 等，会扫描所有描述符。但 epoll 使用了[红黑树](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)管理描述符，效率为 O(1)，事件通知为 O(1)，epoll 只返回活跃的连接，大大提高了效律。
+比如监听 10000 个客户端 socket, 如果不用 epoll 比如使用多线程管理 socket 或者 select/poll 等，会扫描所有描述符。但 epoll 使用了[红黑树](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)管理描述符，效率为 O(1)，事件通知为 O(1), epoll 只返回活跃的连接，大大提高了效律。
 
 具体的 I/O 多路复用可以看[这篇文章](https://www.xiaolincoding.com/os/8_network_system/selete_poll_epoll.html)。
 
 
-`lsof -i` 用来显示当前系统中所有打开的网络文件（network files），也就是与网络连接相关的文件描述符信息。具体来说，它会列出与网络套接字（socket）相关的进程信息。
+`lsof -i` 用来显示当前系统中所有打开的网络文件(network files), 也就是与网络连接相关的文件描述符信息。具体来说, 它会列出与网络套接字(socket)相关的进程信息。
 
 ```
 $ lsof -i :8080
@@ -251,27 +251,27 @@ tcp    ESTAB      0      0       192.168.1.10:8080   172.16.0.8:65432    users:(
 
 常用的有:
 
-`/proc/cpuinfo`：显示 CPU 的详细信息，比如型号、核心数、主频等。
-`/proc/meminfo`：内存使用情况，包括总内存、可用内存、缓冲区等。
-`/proc/uptime`：系统运行时间（以秒为单位）和空闲时间。
-`/proc/version`：内核版本和编译信息。
-`/proc/interrupts`：显示中断信息。
-`/proc/devices`：列出系统中注册的设备驱动。
-`/proc/mounts`：列出当前挂载的文件系统。
-`/proc/sys/` 目录下的文件允许查看和修改内核参数。比如：
-`/proc/sys/kernel/hostname`：系统的 hostname。
-`/proc/sys/net/ipv4/ip_forward`：控制是否启用 IP 转发（0 表示关闭，1 表示启用）。
+- `/proc/cpuinfo`：显示 CPU 的详细信息，比如型号、核心数、主频等。
+- `/proc/meminfo`：内存使用情况，包括总内存、可用内存、缓冲区等。
+- `/proc/uptime`：系统运行时间（以秒为单位）和空闲时间。
+- `/proc/version`：内核版本和编译信息。
+- `/proc/interrupts`：显示中断信息。
+- `/proc/devices`：列出系统中注册的设备驱动。
+- `/proc/mounts`：列出当前挂载的文件系统。
+- `/proc/sys/` 目录下的文件允许查看和修改内核参数。比如：
+- `/proc/sys/kernel/hostname`：系统的 hostname。
+- `/proc/sys/net/ipv4/ip_forward`：控制是否启用 IP 转发(0 表示关闭, 1 表示启用)。
 
 修改这些参数可以用 echo 命令，例如：`echo 1 > /proc/sys/net/ipv4/ip_forward`。大部分 `/proc` 文件是只读的，只有少数（如 `/proc/sys/` 下的文件）可以写入，且需要 root 权限。
 
-每个运行的进程在 `/proc` 下都有一个以进程 ID（PID）命名的目录，比如 `/proc/1234`。
+每个运行的进程在 `/proc` 下都有一个以进程 ID(PID)命名的目录，比如 `/proc/1234`。
 
-`/proc/[pid]/cmdline`：启动该进程的命令行参数。
-`/proc/[pid]/status`：进程的状态信息，比如内存使用、用户 ID 等。
-`/proc/[pid]/fd/`：进程打开的文件描述符，列出该进程当前使用的文件。
-`/proc/[pid]/stat`：包含进程的统计信息，如进程ID、父进程ID、进程状态、优先级等。
-`/proc/[pid]/task`：包含进程的线程信息，每个线程都有一个对应的目录。
-`/proc/[pid]/environ`：包含进程的环境变量。
+- `/proc/[pid]/cmdline`：启动该进程的命令行参数。
+- `/proc/[pid]/status`：进程的状态信息，比如内存使用、用户 ID 等。
+- `/proc/[pid]/fd/`：进程打开的文件描述符，列出该进程当前使用的文件。
+- `/proc/[pid]/stat`: 包含进程的统计信息, 如进程ID、父进程ID、进程状态、优先级等。
+- `/proc/[pid]/task`：包含进程的线程信息，每个线程都有一个对应的目录。
+- `/proc/[pid]/environ`：包含进程的环境变量。
 
 
 ```
