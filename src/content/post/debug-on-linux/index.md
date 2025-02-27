@@ -261,6 +261,11 @@ tcp    ESTAB      0      0       192.168.1.10:8080   172.16.0.8:65432    users:(
 - `/proc/sys/` 目录下的文件允许查看和修改内核参数。比如：
 - `/proc/sys/kernel/hostname`：系统的 hostname。
 - `/proc/sys/net/ipv4/ip_forward`：控制是否启用 IP 转发(0 表示关闭, 1 表示启用)。
+- `/proc/net/dev` 所有网络接口的统计信息，每个网络接口(如 eth0、wlan0)的发送和接收数据统计。
+- `/proc/net/tcp` 和 `/proc/net/udp` 显示当前 TCP 或 UDP 连接的状态。
+- `/proc/net/route` 显示内核的路由表。
+- `/proc/net/arp` 显示 ARP 表，即 IP 地址与 MAC 地址的映射。
+- `/proc/net/stat` 提供网络协议的统计数据，用于高级调试，分析网络栈的性能。
 
 修改这些参数可以用 echo 命令，例如：`echo 1 > /proc/sys/net/ipv4/ip_forward`。大部分 `/proc` 文件是只读的，只有少数（如 `/proc/sys/` 下的文件）可以写入，且需要 root 权限。
 
