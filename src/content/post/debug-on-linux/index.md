@@ -251,32 +251,32 @@ tcp    ESTAB      0      0       192.168.1.10:8080   172.16.0.8:65432    users:(
 
 常用的有:
 
-- `/proc/cpuinfo`：显示 CPU 的详细信息，比如型号、核心数、主频等。
-- `/proc/meminfo`：内存使用情况，包括总内存、可用内存、缓冲区等。
-- `/proc/uptime`：系统运行时间（以秒为单位）和空闲时间。
-- `/proc/version`：内核版本和编译信息。
-- `/proc/interrupts`：显示中断信息。
-- `/proc/devices`：列出系统中注册的设备驱动。
-- `/proc/mounts`：列出当前挂载的文件系统。
-- `/proc/sys/` 目录下的文件允许查看和修改内核参数。比如：
-- `/proc/sys/kernel/hostname`：系统的 hostname。
-- `/proc/sys/net/ipv4/ip_forward`：控制是否启用 IP 转发(0 表示关闭, 1 表示启用)。
-- `/proc/net/dev` 所有网络接口的统计信息，每个网络接口(如 eth0、wlan0)的发送和接收数据统计。
-- `/proc/net/tcp` 和 `/proc/net/udp` 显示当前 TCP 或 UDP 连接的状态。
-- `/proc/net/route` 显示内核的路由表。
-- `/proc/net/arp` 显示 ARP 表，即 IP 地址与 MAC 地址的映射。
-- `/proc/net/stat` 提供网络协议的统计数据，用于高级调试，分析网络栈的性能。
+- `/proc/cpuinfo`：显示 CPU 的详细信息，比如型号、核心数、主频等
+- `/proc/meminfo`：内存使用情况，包括总内存、可用内存、缓冲区等
+- `/proc/uptime`：系统运行时间（以秒为单位）和空闲时间
+- `/proc/version`：内核版本和编译信息
+- `/proc/interrupts`：显示中断信息
+- `/proc/devices`：列出系统中注册的设备驱动
+- `/proc/mounts`：列出当前挂载的文件系统
+- `/proc/sys/` 目录下的文件允许查看和修改内核参数，比如：
+- `/proc/sys/kernel/hostname`：系统的 hostname
+- `/proc/sys/net/ipv4/ip_forward`：控制是否启用 IP 转发(0 表示关闭, 1 表示启用)
+- `/proc/net/dev` 所有网络接口的统计信息，每个网络接口(如 eth0、wlan0)的发送和接收数据统计
+- `/proc/net/tcp` 和 `/proc/net/udp` 显示当前 TCP 或 UDP 连接的状态
+- `/proc/net/route` 显示内核的路由表
+- `/proc/net/arp` 显示 ARP 表，即 IP 地址与 MAC 地址的映射
+- `/proc/net/stat` 提供网络协议的统计数据，用于高级调试，分析网络栈的性能
 
-修改这些参数可以用 echo 命令，例如：`echo 1 > /proc/sys/net/ipv4/ip_forward`。大部分 `/proc` 文件是只读的，只有少数（如 `/proc/sys/` 下的文件）可以写入，且需要 root 权限。
+修改这些参数可以用 echo 命令，例如：`echo 1 > /proc/sys/net/ipv4/ip_forward`，大部分 `/proc` 文件是只读的，只有少数（如 `/proc/sys/` 下的文件）可以写入，且需要 root 权限。
 
 每个运行的进程在 `/proc` 下都有一个以进程 ID(PID)命名的目录，比如 `/proc/1234`。
 
-- `/proc/[pid]/cmdline`：启动该进程的命令行参数。
-- `/proc/[pid]/status`：进程的状态信息，比如内存使用、用户 ID 等。
-- `/proc/[pid]/fd/`：进程打开的文件描述符，列出该进程当前使用的文件。
-- `/proc/[pid]/stat`: 包含进程的统计信息, 如进程ID、父进程ID、进程状态、优先级等。
-- `/proc/[pid]/task`：包含进程的线程信息，每个线程都有一个对应的目录。
-- `/proc/[pid]/environ`：包含进程的环境变量。
+- `/proc/[pid]/cmdline`：启动该进程的命令行参数
+- `/proc/[pid]/status`：进程的状态信息，比如内存使用、用户 ID 等
+- `/proc/[pid]/fd/`：进程打开的文件描述符，列出该进程当前使用的文件
+- `/proc/[pid]/stat`: 包含进程的统计信息, 如进程ID、父进程ID、进程状态、优先级等
+- `/proc/[pid]/task`：包含进程的线程信息，每个线程都有一个对应的目录
+- `/proc/[pid]/environ`：包含进程的环境变量
 
 
 ```
