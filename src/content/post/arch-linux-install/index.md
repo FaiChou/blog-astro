@@ -66,3 +66,7 @@ $ tree -L 2 /boot
 
 7 directories, 11 files
 ```
+
+## refs
+
+- [配置Debian路由器双WAN接入](https://blog.ismisv.com/2022/11/dual-wan-internet-access/)
