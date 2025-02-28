@@ -22,7 +22,6 @@ config interface 'wan'
         option password 'xxx'
         # 其他 PPPoE 相关参数
 
-# LAN: 桥接 + 静态 IP
 config interface 'lan'
         option type 'bridge'
         option ifname 'eth0'  # 如果有多个口，就写成 "eth0 eth2" 或者 "eth0.1" 之类
@@ -31,6 +30,20 @@ config interface 'lan'
         option netmask '255.255.255.0'
         option gateway '192.168.2.1'
         option dns '192.168.2.1'
+
+# config device (物理或虚拟设备)创建了一个桥接设备 br-lan, 将 eth0.1 和 eth1 桥接在一起
+config device
+    option name 'br-lan'
+    option type 'bridge'
+    list ports 'eth0.1'
+    list ports 'eth1'
+
+# config interface (逻辑网络接口)定义了逻辑接口 lan, 绑定到 br-lan 上
+config interface 'lan'
+    option ifname 'br-lan'
+    option proto 'static'
+    option ipaddr '192.168.1.1'
+    option netmask '255.255.255.0'
 ```
 
 下面是 `/etc/config/dhcp` 的配置：
