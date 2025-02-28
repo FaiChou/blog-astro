@@ -156,6 +156,8 @@ bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -selection clipb
 set -g history-limit 10000
 ```
 
+然后执行 `tmux source-file .tmux.conf` 加载配置生效。
+
 ## 8. 安装常用工具
 
 ```shell
@@ -253,3 +255,43 @@ System clock synchronized: yes
               NTP service: active
           RTC in local TZ: no
 ```
+
+## 11. 可能会出现的 locale 问题
+
+```bash
+$ locale
+locale: Cannot set LC_CTYPE to default locale: No such file or directory
+locale: Cannot set LC_MESSAGES to default locale: No such file or directory
+locale: Cannot set LC_ALL to default locale: No such file or directory
+LANG=en_US.UTF-8
+LANGUAGE=en_US
+LC_CTYPE="en_US.UTF-8"
+LC_NUMERIC="en_US.UTF-8"
+LC_TIME="en_US.UTF-8"
+LC_COLLATE="en_US.UTF-8"
+LC_MONETARY="en_US.UTF-8"
+LC_MESSAGES="en_US.UTF-8"
+LC_PAPER="en_US.UTF-8"
+LC_NAME="en_US.UTF-8"
+LC_ADDRESS="en_US.UTF-8"
+LC_TELEPHONE="en_US.UTF-8"
+LC_MEASUREMENT="en_US.UTF-8"
+LC_IDENTIFICATION="en_US.UTF-8"
+LC_ALL=en_US.UTF-8
+```
+
+使用 `cat /etc/locale.gen` 检查 locale 配置文件，确保文件中包含以下行，并且没有被注释：
+
+```
+en_US.UTF-8 UTF-8
+```
+
+如果被注释掉了，则使用编辑器编辑取消它的注释。然后使用命令 `locale-gen` 生成缺失的 locale 数据。运行后，应该会看到类似以下输出：
+
+```
+Generating locales (this might take a while)...
+  en_US.UTF-8... done
+Generation complete.
+```
+
+为了确保设置生效，重新运行配置工具 `dpkg-reconfigure locales`，在弹出的界面中，选择 en_US.UTF-8（用空格键选中），然后确认。
