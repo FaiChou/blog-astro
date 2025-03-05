@@ -91,10 +91,10 @@ alias vi="vim"
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
-set number 
+set number
 set cursorline
 set autoindent
-set smartindent 
+set smartindent
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -161,7 +161,7 @@ set -g history-limit 10000
 ## 8. 安装常用工具
 
 ```shell
-#check_tools.sh
+#install_tools.sh
 #!/bin/bash
 
 GREEN='\033[0;32m'
@@ -178,19 +178,24 @@ tools=(
   nano vim less more
   cron at ntpdate
   passwd adduser sudo
+  dnsutils
 )
 
-echo -e "Checking installed tools...\n"
-for tool in "${tools[@]}"; do
-  if command -v "$tool" >/dev/null 2>&1; then
-    echo -e "${GREEN}$tool: Installed${NC}"
-  else
-    echo -e "${RED}$tool: Not Installed${NC}"
-  fi
-done
+echo -e "Ensuring all tools are installed...\n"
+echo "Updating package list..."
+apt update
+
+echo "Installing tools..."
+apt install -y "${tools[@]}"
+
+if [ $? -eq 0 ]; then
+  echo -e "${GREEN}All tools have been successfully installed or were already present${NC}"
+else
+  echo -e "${RED}Some tools failed to install. Please check your package manager${NC}"
+fi
 ```
 
-执行上面的命令，查看哪些未安装，然后补充安装一下。
+执行上面的命令，后补充安装一下常用工具。
 
 ## 9. 推荐几个好用工具
 
