@@ -169,16 +169,11 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 tools=(
-  bash coreutils findutils tar gzip bzip2 xz-utils
-  iproute2 net-tools curl wget openssh-client traceroute
-  apt dpkg gnupg2
-  mount util-linux parted dosfstools e2fsprogs
-  rsyslog journalctl dmesg lsof strace
-  zip unzip p7zip-full
-  nano vim less more
-  cron at ntpdate
-  passwd adduser sudo
-  dnsutils
+  coreutils findutils tar gzip bzip2 xz-utils
+  iproute2 net-tools curl openssh-client traceroute
+  gnupg2 util-linux parted dosfstools e2fsprogs
+  rsyslog strace zip unzip p7zip-full vim less
+  cron at ntpdate sudo dnsutils
 )
 
 echo -e "Ensuring all tools are installed...\n"
