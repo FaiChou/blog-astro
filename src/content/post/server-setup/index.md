@@ -11,7 +11,7 @@ tags: ["linux", "devops"]
 
 vi /etc/hosts # 将 127.0.1.1 旧主机名 改为 127.0.1.1 新主机名
 
-## 2. 更改镜像源
+## 2. 更改镜像源（国外服务器省略这一步）
 
 ```bash
 # /etc/apt/sources.list
@@ -39,17 +39,13 @@ PubkeyAuthentication yes
 PermitRootLogin prohibit-password
 ```
 
-重启 `systemctl restart sshd`
+重启 `systemctl reload sshd`。
 
 ## 4. 配置 zsh & oh-my-zsh
 
 ```bash
 apt update
-apt install -y zsh
-apt install -y curl
-apt install -y git
-apt install -y vim
-apt install -y fzf
+apt install -y zsh curl git vim fzf
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -170,10 +166,11 @@ NC='\033[0m'
 
 tools=(
   coreutils findutils tar gzip bzip2 xz-utils
-  iproute2 net-tools curl openssh-client traceroute
+  iproute2 net-tools openssh-client traceroute
   gnupg2 util-linux parted dosfstools e2fsprogs
-  rsyslog strace zip unzip p7zip-full vim less
+  rsyslog strace zip unzip p7zip-full less
   cron at ntpdate sudo dnsutils
+  btop vnstat duf
 )
 
 echo -e "Ensuring all tools are installed...\n"
@@ -194,13 +191,9 @@ fi
 
 ## 9. 推荐几个好用工具
 
-```bash
-apt install -y btop
-apt install -y vnstat
-apt install -y duf
-```
-
-以及 nezha agent, [yazi](https://yazi-rs.github.io/), [tailscale](https://tailscale.com/kb/1174/install-debian-bookworm)。
+- [nezha agent](https://nezha.wiki/) 哪吒监控
+- [yazi](https://yazi-rs.github.io/) terminal file manager
+- [tailscale](https://tailscale.com/kb/1174/install-debian-bookworm) VPN Service
 
 ## 10. locale 以及时区问题
 
@@ -294,4 +287,4 @@ Generating locales (this might take a while)...
 Generation complete.
 ```
 
-为了确保设置生效，重新运行配置工具 `dpkg-reconfigure locales`，在弹出的界面中，选择 en_US.UTF-8（用空格键选中），然后确认。
+为了确保设置生效，重新运行配置工具 `dpkg-reconfigure locales`，在弹出的界面中，选择 en_US.UTF-8 (用空格键选中)，然后确认。
