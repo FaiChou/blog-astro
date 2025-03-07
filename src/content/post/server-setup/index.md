@@ -45,7 +45,7 @@ PermitRootLogin prohibit-password
 
 ```bash
 apt update
-apt install -y zsh curl git vim fzf
+apt install -y zsh curl git vim fzf tmux
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -55,7 +55,6 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 
 ```bash
 # .zshrc
-# If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 export ZSH="$HOME/.oh-my-zsh"
@@ -68,12 +67,6 @@ export LANG=en_US.UTF-8
 export LANGUAGE="en_US"
 export LC_ALL=en_US.UTF-8
 export LS_OPTIONS='--color=auto'
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
 alias vi="vim"
 ```
 
@@ -106,8 +99,6 @@ set updatetime=300
 ```
 
 ## 7. 配置 .tmux.conf
-
-安装 tmux: `apt install -y tmux`
 
 ```bash
 # .tmux.conf
@@ -185,6 +176,12 @@ if [ $? -eq 0 ]; then
 else
   echo -e "${RED}Some tools failed to install. Please check your package manager${NC}"
 fi
+```
+
+或者直接使用一行命令安装:
+
+```bash
+apt install -y coreutils findutils tar gzip bzip2 xz-utils iproute2 net-tools openssh-client traceroute gnupg2 util-linux parted dosfstools e2fsprogs rsyslog strace zip unzip p7zip-full less cron at ntpdate sudo dnsutils btop vnstat duf
 ```
 
 执行上面的命令，后补充安装一下常用工具。

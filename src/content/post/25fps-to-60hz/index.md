@@ -83,7 +83,7 @@ duration = (frame_rate.num && frame_rate.den ? av_q2d((AVRational){frame_rate.de
 
 我不清楚为什么不直接使用 AVFrame 的 `duration` 值。很多播放器都是先取 Frame 中 `duration`, 判断为空再使用 `frame_rate` 来计算：
 
-```c
+```swift
 frame.duration = avframe.pointee.duration
 if frame.duration == 0, avframe.pointee.sample_rate != 0, frame.timebase.num != 0 {
   frame.duration = Int64(avframe.pointee.nb_samples) * Int64(frame.timebase.den) / (Int64(avframe.pointee.sample_rate) * Int64(frame.timebase.num))
