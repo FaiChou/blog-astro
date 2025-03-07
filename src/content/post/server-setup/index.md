@@ -184,7 +184,7 @@ fi
 apt install -y coreutils findutils tar gzip bzip2 xz-utils iproute2 net-tools openssh-client traceroute gnupg2 util-linux parted dosfstools e2fsprogs rsyslog strace zip unzip p7zip-full less cron at ntpdate sudo dnsutils btop vnstat duf
 ```
 
-执行上面的命令，后补充安装一下常用工具。
+执行上面的命令，补充安装一下常用工具。
 
 ## 9. 推荐几个好用工具
 
