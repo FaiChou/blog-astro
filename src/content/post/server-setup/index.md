@@ -33,7 +33,7 @@ deb-src http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-updates main contrib
 
 ## 3. 配置 ssh
 
-添加 ssh public keys 到 /root/.ssh/authorized_keys
+添加 ssh [public keys](https://faichou.com/notes/my-ssh-keys/) 到 /root/.ssh/authorized_keys
 
 
 ```bash
