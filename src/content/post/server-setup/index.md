@@ -7,9 +7,12 @@ tags: ["linux", "devops"]
 
 ## 1. 修改主机名
 
-`hostnamectl set-hostname 新的主机名`
+`hostnamectl set-hostname 新的主机名` 或者直接 `vi /etc/hosts`, 将 127.0.1.1 旧主机名, 改为 127.0.1.1 新主机名，如果完全是自己装的系统，可以在装机步骤就填好了主机名信息，省略次步骤。
 
-vi /etc/hosts # 将 127.0.1.1 旧主机名 改为 127.0.1.1 新主机名
+```
+127.0.0.1	localhost
+127.0.1.1 epyc.yourdomain.com epyc
+```
 
 ## 2. 更改镜像源（国外服务器省略这一步）
 
