@@ -33,7 +33,7 @@ deb-src http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-updates main contrib
 
 ## 3. 配置 ssh
 
-添加 ssh [public keys](https://faichou.com/notes/my-ssh-keys/) 到 /root/.ssh/authorized_keys
+添加 ssh [public keys](https://faichou.com/notes/my-ssh-keys/) 到 `/root/.ssh/authorized_keys`。
 
 
 ```bash
@@ -44,7 +44,7 @@ PermitRootLogin prohibit-password
 
 重启 `systemctl reload sshd`。
 
-## 4. 配置 zsh & oh-my-zsh
+## 4. 安装 zsh & oh-my-zsh
 
 ```bash
 apt update
@@ -150,39 +150,6 @@ set -g history-limit 10000
 
 ## 8. 安装常用工具
 
-```shell
-#install_tools.sh
-#!/bin/bash
-
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-NC='\033[0m'
-
-tools=(
-  coreutils findutils tar gzip bzip2 xz-utils
-  iproute2 net-tools openssh-client traceroute
-  gnupg2 util-linux parted dosfstools e2fsprogs
-  rsyslog strace zip unzip p7zip-full less
-  cron at ntpdate sudo dnsutils
-  btop vnstat duf
-)
-
-echo -e "Ensuring all tools are installed...\n"
-echo "Updating package list..."
-apt update
-
-echo "Installing tools..."
-apt install -y "${tools[@]}"
-
-if [ $? -eq 0 ]; then
-  echo -e "${GREEN}All tools have been successfully installed or were already present${NC}"
-else
-  echo -e "${RED}Some tools failed to install. Please check your package manager${NC}"
-fi
-```
-
-或者直接使用一行命令安装:
-
 ```bash
 apt install -y coreutils findutils tar gzip bzip2 xz-utils iproute2 net-tools openssh-client traceroute gnupg2 util-linux parted dosfstools e2fsprogs rsyslog strace zip unzip p7zip-full less cron at ntpdate sudo dnsutils btop vnstat duf
 ```
@@ -195,9 +162,7 @@ apt install -y coreutils findutils tar gzip bzip2 xz-utils iproute2 net-tools op
 - [yazi](https://yazi-rs.github.io/) terminal file manager
 - [tailscale](https://tailscale.com/kb/1174/install-debian-bookworm) VPN Service
 
-## 10. locale 以及时区问题
-
-使用 `locale` 检查 `LANGUAGE=en_US` `LANG=en_US.UTF-8` 等。
+## 10. 时区问题
 
 使用 `timedatectl` 检查时区，修改成 `Asia/Shanghai`:
 
@@ -250,6 +215,8 @@ System clock synchronized: yes
 ```
 
 ## 11. 可能会出现的 locale 问题
+
+使用 `locale` 检查 `LANGUAGE=en_US` `LANG=en_US.UTF-8` 等。
 
 ```bash
 $ locale
