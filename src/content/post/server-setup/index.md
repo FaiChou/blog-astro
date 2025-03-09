@@ -48,7 +48,7 @@ PermitRootLogin prohibit-password
 
 ```bash
 apt update
-apt install -y zsh curl git vim fzf tmux
+apt install -y zsh wget curl git vim fzf tmux
 chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
