@@ -74,83 +74,100 @@ patch:
   # 通知栏显示方式以及 ascii_mode 应用，与外观无关
   show_notifications_via_notification_center: true
 
-  # 修改应用的打开后的中英文
+  # 以下软件默认英文模式
   app_options:
     com.apple.Spotlight:
       ascii_mode: true
-    com.microsoft.VSCode:
-      ascii_mode: true
-      sacii_punct: true
-    com.tencent.qq:
-      ascii_mode: false
-    com.tencent.xinWeChat:
-      ascii_mode: false
     com.googlecode.iterm2:
       ascii_mode: true
-    com.kingsoft.wpsoffice.mac:
-      ascii_mode: false
-
 
 # 如果想要修改皮肤，直接更改 color_scheme 的值即可
   style:
-    color_scheme: wechat_light
-    color_scheme_dark: wechat_dark
+    color_scheme: macos_light
+    color_scheme_dark: macos_dark
 
-  preset_color_schemes:
-    wechat_light:
-      name: 微信键盘浅色
-      candidate_list_layout: linear             # 横排
-      back_color: 0xFFFFFF                      # 候选条背景色
-      border_height: 0                          # 窗口上下高度，大于圆角半径才生效
-      border_width: 8                           # 窗口左右宽度，大于圆角半径才生效
-      candidate_format: '%c %@ '                # 用 1/6 em 空格 U+2005 来控制编号 %c 和候选词 %@ 前后的空间
-      comment_text_color: 0x999999              # 拼音等提示文字颜色
-      corner_radius: 5                          # 窗口圆角
-      hilited_corner_radius: 5                  # 高亮圆角
-      font_face: 'LXGW WenKai'                  # 候选词字体
-      font_point: 16                            # 候选字大小
-      hilited_candidate_back_color: 0x75B100    # 第一候选项背景色
-      hilited_candidate_text_color: 0xFFFFFF    # 第一候选项文字颜色
-      label_font_point: 12                      # 候选编号大小
-      text_color: 0x424242                      # 拼音行文字颜色
-      inline_preedit: true                      # 拼音位于： 候选框 false | 行内 true
-    wechat_dark:
-      name: 微信键盘深色
-      candidate_list_layout: linear             # 横排
-      back_color: 0x2e2925                      # 候选条背景色
-      border_height: 0                          # 窗口上下高度，大于圆角半径才生效
-      border_width: 8                           # 窗口左右宽度，大于圆角半径才生效
-      candidate_format: '%c %@ '                # 用 1/6 em 空格 U+2005 来控制编号 %c 和候选词 %@ 前后的空间
-      comment_text_color: 0x999999              # 拼音等提示文字颜色
-      corner_radius: 5                          # 窗口圆角
-      hilited_corner_radius: 5                  # 高亮圆角
-      font_face: 'LXGW WenKai'                  # 候选词字体
-      font_point: 16                            # 候选字大小
-      hilited_candidate_back_color: 0x75B100    # 第一候选项背景色
-      hilited_candidate_text_color: 0xFFFFFF    # 第一候选项文字颜色
-      label_font_point: 12                      # 候选编号大小
-      text_color: 0x424242                      # 拼音行文字颜色
-      label_color: 0x999999                     # 预选栏编号颜色
-      candidate_text_color: 0xe9e9ea            # 预选项文字颜色
-      inline_preedit: true                      # 拼音位于： 候选框 false | 行内 true
-    wechat:
-      name: '微信键盘 / WeChat-keyboard' # 配色取自微信键盘
-      author: zsakvo
-      back_color: 0xFFFFFF
-      border_height: 0
-      border_width: 8
-      candidate_format: '%c %@ '
-      comment_text_color: 0x999999
-      corner_radius: 5
-      hilited_corner_radius: 5
-      font_face: 'LXGW WenKai'
+    macos_light:
+      name: "MacOS 浅色/MacOS Light"
+      author: 小码哥
+      font_face: "LXGW WenKai"          # 字体及大小
       font_point: 16
-      hilited_candidate_back_color: 0x75B100
-      hilited_candidate_text_color: 0xFFFFFF
-      horizontal: true
-      inline_preedit: true
+      label_font_face: "LXGW WenKai"    # 序号字体及大小
       label_font_point: 12
-      text_color: 0x424242
+      comment_font_face: "LXGW WenKai"  # 注字体及大小
+      comment_font_point: 16
+      candidate_format: "%c\u2005%@\u2005" # 编号 %c 和候选词 %@ 前后的空间
+      candidate_list_layout: linear   # 候选排布：层叠 stacked | 行 linear
+      text_orientation: horizontal    # 行文向： 横 horizontal | 纵 vertical
+      inline_preedit: true            # 拼音位于： 候选框 false | 行内 true
+      translucency: false             # 磨砂： false | true
+      mutual_exclusive: false         # 色不叠加： false | true
+      border_height: 1                # 外边框 高
+      border_width: 1                 # 外边框 宽
+      corner_radius: 5                # 外边框 圆角半径
+      hilited_corner_radius: 5       # 选中框 圆角半径
+      surrounding_extra_expansion: 0 # 候选项背景相对大小？
+      shadow_size: 0                 # 阴影大小
+      line_spacing: 5                # 行间距
+      base_offset: 0                 # 字基高
+      alpha: 1                       # 透明度，0~1
+      spacing: 10                    # 拼音与候选项之间的距离 （inline_preedit: false）
+      color_space: srgb                       # 色彩空间： srgb | display_p3
+      back_color: 0xFFFFFF                    # 底色
+      hilited_candidate_back_color: 0xD75A00  # 选中底色
+      label_color: 0x999999                   # 序号颜色
+      hilited_candidate_label_color: 0xFFFFFF # 选中序号颜色
+      candidate_text_color: 0x3c3c3c          # 文字颜色
+      hilited_candidate_text_color: 0xFFFFFF  # 选中文字颜色
+      comment_text_color: 0x999999            # 注颜色
+      hilited_comment_text_color: 0xFFFFFF    # 选中注颜色
+      text_color: 0x424242                    # 拼音颜色 （inline_preedit: false）
+      hilited_text_color: 0xFFFFFF            # 选中拼音颜色 （inline_preedit: false）
+      candidate_back_color: 0xFFFFFF          # 候选项底色
+      # preedit_back_color:                   # 拼音底色 （inline_preedit: false）
+      hilited_back_color: 0xD75A00            # 选中拼音底色 （inline_preedit: false）
+      border_color: 0xFFFFFF                  # 外边框颜色
+  
+    macos_dark:
+      name: "MacOS 深色/MacOS Dark"
+      author: 小码哥
+      font_face: "LXGW WenKai"          # 字体及大小
+      font_point: 16
+      label_font_face: "LXGW WenKai"    # 序号字体及大小
+      label_font_point: 12
+      comment_font_face: "LXGW WenKai"  # 注字体及大小
+      comment_font_point: 16
+      candidate_format: "%c\u2005%@\u2005" # 编号 %c 和候选词 %@ 前后的空间
+      candidate_list_layout: linear   # 候选排布：层叠 stacked | 行 linear
+      text_orientation: horizontal    # 行文向： 横 horizontal | 纵 vertical
+      inline_preedit: true            # 拼音位于： 候选框 false | 行内 true
+      translucency: false             # 磨砂： false | true
+      mutual_exclusive: false         # 色不叠加： false | true
+      border_height: 1                # 外边框 高
+      border_width: 1                 # 外边框 宽
+      corner_radius: 5                # 外边框 圆角半径
+      hilited_corner_radius: 5       # 选中框 圆角半径
+      surrounding_extra_expansion: 0 # 候选项背景相对大小？
+      shadow_size: 0                 # 阴影大小
+      line_spacing: 5                # 行间距
+      base_offset: 0                 # 字基高
+      alpha: 1                       # 透明度，0~1
+      spacing: 10                    # 拼音与候选项之间的距离 （inline_preedit: false）
+      color_space: srgb                       # 色彩空间： srgb | display_p3
+      back_color: 0x1f1e2d                  # 底色
+      hilited_candidate_back_color: 0xD75A00  # 选中底色
+      label_color: 0x999999                   # 序号颜色
+      hilited_candidate_label_color: 0xFFFFFF # 选中序号颜色
+      candidate_text_color: 0xe9e9ea          # 文字颜色
+      hilited_candidate_text_color: 0xFFFFFF  # 选中文字颜色
+      comment_text_color: 0x999999            # 注颜色
+      hilited_comment_text_color: 0x999999    # 选中注颜色
+      text_color: 0x808080                    # 拼音颜色 （inline_preedit: false）
+      hilited_text_color: 0xFFFFFF            # 选中拼音颜色 （inline_preedit: false）
+      candidate_back_color: 0x1f1e2d          # 候选项底色
+      # preedit_back_color:                   # 拼音底色 （inline_preedit: false）
+      hilited_back_color: 0xD75A00            # 选中拼音底色 （inline_preedit: false）
+      border_color: 0x050505                  # 外边框颜色
+
 ```
 
 当然这里面也设置了应用打开后的默认中英文, 比如我们在 Spotlight 搜索时候一般是用来打开应用, 应用大多都是英文, 所以默认使用英文; 再比如打开 VSCode 大部分是要键入代码, 所以默认也是英文, 并且要使用半角符号.
