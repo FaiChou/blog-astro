@@ -71,7 +71,6 @@ export LANGUAGE="en_US"
 export LC_ALL=en_US.UTF-8
 export LS_OPTIONS='--color=auto'
 alias vi="vim"
-alias scr="screen -r $(screen -ls | grep -oE "[0-9]+\.[^[:space:]]+" | tail -n 1)"
 ```
 
 最后别忘记 `source ~/.zshrc`
