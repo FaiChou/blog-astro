@@ -101,61 +101,13 @@ set timeoutlen=500
 set updatetime=300
 ```
 
-## 7. 配置 .tmux.conf
-
-```bash
-# .tmux.conf
-unbind C-b
-set -g prefix C-a
-bind C-a send-prefix
-
-set-option -g status-bg colour9
-set-option -g status-fg colour46
-
-bind-key -n M-Up select-pane -U
-bind-key -n M-Down select-pane -D
-bind-key -n M-Left select-pane -L
-bind-key -n M-Right select-pane -R
-
-bind-key -n M-0 select-window -t 0
-bind-key -n M-1 select-window -t 0
-bind-key -n M-2 select-window -t 1
-bind-key -n M-3 select-window -t 2
-
-set -g mouse on
-set -g status-left-length 30
-set -g status-right-length 30
-
-set -g pane-border-style fg=brightblack
-set -g pane-active-border-style fg=brightgreen
-
-bind -r < resize-pane -L 2
-bind -r > resize-pane -R 2
-bind -r + resize-pane -U 1
-bind -r - resize-pane -D 1
-
-bind | split-window -h
-bind - split-window -v
-unbind '"'
-unbind %
-
-setw -g mode-keys vi
-bind -T copy-mode-vi v send-keys -X begin-selection
-bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -selection clipboard -i"
-
-set -g history-limit 10000
-```
-
-然后执行 `tmux source-file .tmux.conf` 加载配置生效。
-
-
-## 8. 推荐几个好用工具
+## 7. 推荐几个好用工具
 
 - [nezha agent](https://nezha.wiki/) 哪吒监控
 - [yazi](https://yazi-rs.github.io/) terminal file manager
 - [tailscale](https://tailscale.com/kb/1174/install-debian-bookworm) VPN Service
 
-## 9. 时区问题
+## 8. 时区问题
 
 使用 `timedatectl` 检查时区，修改成 `Asia/Shanghai`:
 
@@ -207,7 +159,7 @@ System clock synchronized: yes
           RTC in local TZ: no
 ```
 
-## 10. 可能会出现的 locale 问题
+## 9. 可能会出现的 locale 问题
 
 使用 `locale` 检查 `LANGUAGE=en_US` `LANG=en_US.UTF-8` 等。
 
