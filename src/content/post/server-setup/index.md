@@ -154,13 +154,7 @@ bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -selection clipb
 set -g history-limit 10000
 ```
 
-## 8. 推荐几个好用工具
-
-- [nezha agent](https://nezha.wiki/) 哪吒监控
-- [yazi](https://yazi-rs.github.io/) terminal file manager
-- [tailscale](https://tailscale.com/kb/1174/install-debian-bookworm) VPN Service
-
-## 9. 时区问题
+## 8. 时区问题
 
 使用 `timedatectl` 检查时区，修改成 `Asia/Shanghai`:
 
@@ -212,7 +206,7 @@ System clock synchronized: yes
           RTC in local TZ: no
 ```
 
-## 10. 可能会出现的 locale 问题
+## 9 可能会出现的 locale 问题
 
 使用 `locale` 检查 `LANGUAGE=en_US` `LANG=en_US.UTF-8` 等。
 
