@@ -58,6 +58,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 
 ```bash
 # .zshrc
+cat << EOF > .zshrc
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 export ZSH="$HOME/.oh-my-zsh"
@@ -71,6 +72,7 @@ export LANGUAGE="en_US"
 export LC_ALL=en_US.UTF-8
 export LS_OPTIONS='--color=auto'
 alias vi="vim"
+EOF
 ```
 
 最后别忘记 `source ~/.zshrc`
@@ -80,6 +82,7 @@ alias vi="vim"
 
 ```bash
 # .vimrc
+cat << EOF > .vimrc
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
@@ -99,19 +102,23 @@ set background=dark
 colorscheme elflord
 set timeoutlen=500
 set updatetime=300
+EOF
 ```
 
 ## 7. 配置 .screenrc & .tmux.conf
 
 ```
 # .screenrc
+cat << EOF > .screenrc
 startup_message off
 hardstatus alwayslastline
 hardstatus string '%{= g}[%{W}%n:%t%{g}] [%{B}%c %{g}]'
+EOF
 ```
 
 ```
 # .tmux.conf
+cat << EOF > .tmux.conf
 unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
@@ -152,6 +159,7 @@ bind -T copy-mode-vi v send-keys -X begin-selection
 bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -selection clipboard -i"
 
 set -g history-limit 10000
+EOF
 ```
 
 ## 8. 时区问题
