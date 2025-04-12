@@ -18,7 +18,7 @@ tags: ["linux", "devops"]
 
 ```bash
 # /etc/apt/sources.list
-
+cat << EOF > /etc/apt/sources.list
 deb http://mirrors.tuna.tsinghua.edu.cn/debian bookworm main contrib non-free
 deb-src http://mirrors.tuna.tsinghua.edu.cn/debian bookworm main contrib non-free
 
@@ -27,6 +27,7 @@ deb-src http://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security ma
 
 deb http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-updates main contrib non-free
 deb-src http://mirrors.tuna.tsinghua.edu.cn/debian bookworm-updates main contrib non-free
+EOF
 ```
 
 然后执行 `apt update` 和 `apt upgrade`。
