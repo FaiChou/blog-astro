@@ -59,7 +59,7 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 
 ```bash
 # .zshrc
-cat << EOF > .zshrc
+cat << 'EOF' > .zshrc
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 export ZSH="$HOME/.oh-my-zsh"
