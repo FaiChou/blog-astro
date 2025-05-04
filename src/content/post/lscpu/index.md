@@ -9,7 +9,6 @@ lscpu 是 Linux 系统中用于查看 CPU 信息的命令。它提供了详细�
 
 ```bash
 # Intel(R) Xeon(R) CPU E5-2660 v2 @ 2.20GHz 40 Physical Core
-$ lscpu
 root@debian:~# lscpu
 Architecture:             x86_64
   CPU op-mode(s):         32-bit, 64-bit
@@ -45,7 +44,7 @@ NUMA:
   NUMA node0 CPU(s):      0-9,20-29
   NUMA node1 CPU(s):      10-19,30-39
 
-$ root@debian:~# lscpu -e
+root@debian:~# lscpu -e
 CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
   0    0      0    0 0:0:0:0          yes 3000.0000 1200.0000 2593.7639
   1    0      0    1 1:1:1:0          yes 3000.0000 1200.0000 2593.7620
