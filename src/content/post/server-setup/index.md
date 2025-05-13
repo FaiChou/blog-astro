@@ -51,7 +51,7 @@ PermitRootLogin prohibit-password
 apt update
 apt install -y zsh wget curl git vim fzf screen tmux coreutils findutils tar gzip bzip2 xz-utils iproute2 net-tools openssh-client traceroute gnupg2 util-linux parted dosfstools e2fsprogs rsyslog strace zip unzip p7zip-full less cron at ntpdate sudo dnsutils btop vnstat duf
 chsh -s $(which zsh)
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 ```
 
