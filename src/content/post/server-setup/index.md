@@ -58,7 +58,6 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/p
 ## 5. 配置 .zshrc
 
 ```bash
-# .zshrc
 cat << 'EOF' > .zshrc
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -86,10 +85,8 @@ zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 ### Fix slowness of pastes
 EOF
+source ~/.zshrc
 ```
-
-最后别忘记 `source ~/.zshrc`
-
 
 ## 6. 配置 .vimrc
 
