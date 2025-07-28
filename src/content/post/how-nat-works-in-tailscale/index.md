@@ -75,7 +75,7 @@ $ ip route get 100.64.0.19 # macOS 使用 route -n get 100.64.0.2
 
 ## Tailscale 的一个打洞问题
 
-想理解 Tailscale 的打洞问题，需要有很多基础知识，上面的 NAT 只是其中一部分。基础知识扎实对于一个开发者来讲是至关重要的，尤其是 http 这一块。能够详细的讲述*一个数据包是如何在应用层，传输层，网络层和数据接口层传输*是很基础的。很多细节问题都要研究透，比如 DNS 是基于 TCP 还是 TCP，DHCP 在 ARP 之前还是之后，它们的工作流程是什么，http 如何升级成 WebSocket 的等。以及很多名词 UPnP, NAT-PMP, STUN, CGNAT, NAT64, SNAT, DNAT 等。
+想理解 Tailscale 的打洞问题，需要有很多基础知识，上面的 NAT 只是其中一部分。基础知识扎实对于一个开发者来讲是至关重要的，尤其是 http 这一块。能够详细的讲述*一个数据包是如何在应用层，传输层，网络层和数据接口层传输*是很基础的。很多细节问题都要研究透，比如 DNS 是基于 TCP 还是 UDP，DHCP 在 ARP 之前还是之后，它们的工作流程是什么，http 如何升级成 WebSocket 的等。以及很多名词 UPnP, NAT-PMP, STUN, CGNAT, NAT64, SNAT, DNAT 等。
 
 假如你基础功底扎实，可以看下面这一个问题，这个问题是我在阅读 [Tailscale 这篇博客](https://tailscale.com/blog/how-nat-traversal-works) 时发现的，这篇文章比较长，在 **The benefits of birthdays** 这一章节:
 
