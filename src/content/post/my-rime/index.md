@@ -300,7 +300,7 @@ log() {
 
 ```bash
 chmod +x ~/bin/update_rime_and_deploy.sh
-launchctl load /Library/LaunchDaemons/com.faichou.rime.plist
+launchctl load ~/Library/LaunchDaemons/com.faichou.rime.plist
 ```
 
 这样, 每天中午12点就会自动更新词库, 并自动同步配置, 自动部署.
