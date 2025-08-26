@@ -42,7 +42,7 @@ bash rime-install iDvel/rime-ice:others/recipes/full
 ## 4. 安装霞鹜文楷字体
 
 ```bash
-brew tap homebrew/cask-fonts && brew install font-lxgw-wenkai
+brew install font-lxgw-wenkai
 ```
 
 # 配置工作
