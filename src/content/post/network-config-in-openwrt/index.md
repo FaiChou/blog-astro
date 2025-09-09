@@ -135,7 +135,7 @@ OpenWrt 中默认使用 dnsmasq 作为 DHCP 服务器、DNS 缓存转发器。�
 
 以在路由器上执行 ping 8.8.8.8 为例：
 1. 用户态：命令 ping 8.8.8.8 程序会创建一个 ICMP socket, 向内核发出数据包。
-2. 内核路由：内核检查路由表，发现去往 8.8.8.8 的缺省路由走 pppoe-wan, 将包封装为 PPP/PPPoE, 再经过 eth1 发送到 ISP。
+2. 内核路由：内核检查路由表，发现去往 8.8.8.8 的默认路由走 pppoe-wan, 将包封装为 PPP/PPPoE, 再经过 eth1 发送到 ISP。
 3. 返回响应: ISP 回包进来 -> eth1 接收帧 -> 内核 PPPoE 驱动解封装 -> PPP 网络接口 -> 内核查找 ICMP 协议、匹配 socket -> 用户态 ping 收到。
 
 ## DHCP 在 LAN 接口上的运行机制
