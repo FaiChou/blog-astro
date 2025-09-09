@@ -65,7 +65,7 @@ config dhcp 'lan'
 
 #### loopback
 
-本地回环 (oopback) 接口，名称是 lo, IP 地址为 127.0.0.1/8。在内核中这个接口对应 lo 设备，和大多数 Linux 系统类似。
+本地回环 (loopback) 接口，名称是 lo, IP 地址为 127.0.0.1/8。在内核中这个接口对应 lo 设备，和大多数 Linux 系统类似。
 
 #### WAN 接口配置: PPPoE
 
