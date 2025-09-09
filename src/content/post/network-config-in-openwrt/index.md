@@ -30,12 +30,16 @@ config interface 'lan'
         option netmask '255.255.255.0'
         option gateway '192.168.2.1'
         option dns '192.168.2.1'
+```
 
+或者用下面的配置将 eth0 和 eth1 桥接，然后配置静态网络:
+
+```
 # config device (物理或虚拟设备)创建了一个桥接设备 br-lan, 将 eth0.1 和 eth1 桥接在一起
 config device
     option name 'br-lan'
     option type 'bridge'
-    list ports 'eth0.1'
+    list ports 'eth0'
     list ports 'eth1'
 
 # config interface (逻辑网络接口)定义了逻辑接口 lan, 绑定到 br-lan 上
