@@ -67,6 +67,72 @@ $ tree -L 2 /boot
 7 directories, 11 files
 ```
 
+## 启动过程
+
+#### 1. UEFI 固件阶段
+
+开机时，主板的 UEFI 固件 会去读取 EFI 分区（通常挂载到 `/boot/efi`）。它会查找 默认启动项（存放在 UEFI NVRAM 中），比如 `EFI/debian/grubx64.efi`, 或者回退到通用启动文件 `EFI/BOOT/BOOTX64.EFI`。
+
+```
+/boot/efi/EFI/debian/grubx64.efi   ← Debian 安装时写入的 EFI 启动程序
+/boot/efi/EFI/BOOT/BOOTX64.EFI     ← 兜底的启动程序
+```
+
+这两个其实都是 **GRUB EFI 程序**。
+
+#### 2. GRUB EFI 阶段
+
+当 UEFI 加载 `grubx64.efi` 后，就进入 **GRUB EFI 引导器**。GRUB 会读取它的配置文件，`/boot/efi/EFI/debian/grub.cfg`(一个小跳转配置，通常只写一行，指向真正的配置), 实际主要的配置是 `/boot/grub/grub.cfg`。
+
+```
+/boot/grub/grub.cfg    ← 主要的 GRUB 配置
+/boot/grub/grubenv     ← 存放 GRUB 变量（比如上次启动项）
+/boot/grub/fonts/      ← 字体文件
+/boot/grub/locale/     ← 本地化语言文件
+```
+
+在 `/boot/grub/grub.cfg` 里，会有类似：
+
+```
+menuentry 'Debian GNU/Linux' {
+    linux   /vmlinuz-6.12.18-trim root=UUID=xxxx rw
+    initrd  /initrd.img-6.12.18-trim
+}
+```
+
+这就告诉 GRUB：
+
+- 内核是 /boot/vmlinuz-6.12.18-trim
+- 使用 /boot/initrd.img-6.12.18-trim 作为 initramfs (initial RAM filesystem 初始内存文件系统)
+- 内核启动参数里指定 root 分区（UUID）
+
+#### 3. Linux 内核阶段
+
+GRUB 把内核 (vmlinuz-6.12.18-trim) 和 initramfs (initrd.img-6.12.18-trim) 加载到内存, 再把控制权交给内核。
+
+内核启动过程：
+
+1. 解压内核，初始化硬件驱动（早期阶段用 initramfs 里的模块）
+2. initramfs 里会挂载真正的 root 文件系统（比如 /dev/nvme0n1p2）
+3. 切换到真正的 rootfs 后，执行 /sbin/init（或者 systemd）
+
+#### 4. 用户空间阶段
+
+systemd 或 sysvinit 开始运行，启动各种服务（网络、登录、图形界面等）。最终进入熟悉的登录界面（TTY 或 GDM/KDM）。
+
+#### 5. 总结
+
+```
+/boot/efi/EFI/BOOT/BOOTX64.EFI   ← 回退用的 GRUB EFI
+/boot/efi/EFI/debian/grubx64.efi ← Debian 的 GRUB EFI 程序
+/boot/efi/EFI/debian/grub.cfg    ← 跳转配置（指向 /boot/grub/grub.cfg）
+/boot/grub/grub.cfg              ← 主要的引导菜单配置
+/boot/config-6.12.18-trim        ← 内核编译配置（不是引导必须）
+/boot/vmlinuz-*                  ← 内核
+/boot/initrd.img-*               ← initramfs
+```
+
+
 ## refs
 
 - [配置Debian路由器双WAN接入](https://blog.ismisv.com/2022/11/dual-wan-internet-access/)
