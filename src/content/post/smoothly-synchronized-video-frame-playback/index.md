@@ -135,3 +135,53 @@ void video_refresh_timer(void *userdata) {
 这种方法通过动态调整视频显示的延迟来尽量减少音视频之间的同步误差，提高观看体验。
 
 
+用一个伪代码展示下更精确的循环流程:
+
+```
+// 视频线程伪代码循环
+while (playing) {
+    // 从队列获取下一视频帧 vp
+    video_frame = queue.get_frame();
+
+    // 获取音频主时钟时间
+    master_clock_time = get_master_clock();
+
+    // 计算目标显示时间与主时钟的差距
+    pts_diff = video_frame.pts - master_clock_time;
+
+    // 定义一个负的阈值，用于判断是否严重落后
+    const double SYNC_THRESHOLD_MIN = -0.1; // -100ms
+
+    // 情况一：视频严重落后
+    // 比如：video.pts = 5.2, clock = 5.4 => diff = -0.2
+    // -0.2 < -0.1，说明落后超过100ms，应该丢帧
+    if (pts_diff < SYNC_THRESHOLD_MIN) {
+        // 丢弃这一帧，直接开始下一轮循环
+        continue;
+    }
+
+    // 计算实际需要等待的时间 (delay)
+    double delay;
+
+    // 情况二：视频超前
+    // 比如：video.pts = 5.2, clock = 5.0 => diff = 0.2
+    // 需要等待 0.2 秒
+    if (pts_diff > 0) {
+        delay = pts_diff;
+    } 
+    // 情况三：视频轻微落后（但在可接受范围内）
+    // 比如：video.pts = 5.2, clock = 5.25 => diff = -0.05
+    // -0.05 > -0.1，说明落后在100ms内，立即播放
+    else { 
+        delay = 0;
+    }
+    
+    // 更简洁的写法是: delay = (pts_diff > 0) ? pts_diff : 0;
+
+    // 等待计算出的 delay 时间
+    sleep(delay);
+
+    // 渲染显示这一帧画面
+    render(video_frame);
+}
+```
