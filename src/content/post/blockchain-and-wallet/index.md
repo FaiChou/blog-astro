@@ -1,5 +1,5 @@
 ---
-title: "区块链和钱包"
+title: "blockchain and wallet"
 publishDate: "2025-10-23"
 description: "Nockchain 区块链和钱包"
 tags: ["btc", "blockchain", "web3", "UTXO"]
@@ -69,9 +69,11 @@ Lock {
 
 每次转账给你时，系统会：
 
-1. 构造一个新的 Lock 对象（内部包含你的公钥或公钥列表、签名策略、nonce等）；
-2.把该 Lock 的哈希作为 Source；
-3.用这个 Lock 来锁定新产生的 Note。
+1. 构造一个新的 Lock 对象（内部包含你的公钥或公钥列表、签名策略、nonce等）
+
+2.把该 Lock 的哈希作为 Source
+
+3.用这个 Lock 来锁定新产生的 Note
 
 也就是说每次别人给你钱的时候，哪怕是给同一个公钥，系统也会生成一个新的 Lock（比如因为每笔交易都有不同上下文），所以 Source 不会一样。
 
