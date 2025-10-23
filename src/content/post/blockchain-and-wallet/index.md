@@ -157,3 +157,4 @@ nockchain-wallet create-tx --names "[[DGEQBoT1nVJGZry2S2hScmkD27auheiZr5cLMoJEYh
 
 生成了一份 `.tx` 文件，然后调用 `nockchain-wallet send-txtxs xxx.tx` 来发送交易，钱包会用私钥来签名，然后广播到网络中，被矿工验证（上面有伪代码）后打包到区块链中。
 
+另外，由于挖矿会频繁的给矿工奖励，所以会收到很多笔 note, 就像散落了一地的苹果，需要你一个个捡起来，它不像你的余额一样，可以完整的一次性使用，需要先归集，也就是用上面的命令 create-tx 时候将多个 names 数组放进去，再转到你的公钥地址，这样小苹果变成一个大苹果。或者接受地址直接填交易所地址，币就会直接打到交易所。
