@@ -9,7 +9,7 @@ tags: ["tls", "https", "openssl", "cryptology"]
 
 首先要知道，https 用到了对称加密和非对称加密。其中的密钥交换过程是挺有研究意义的。
 
-TLS 握手（以 TLS1.2 为例使用套件 TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384）是一个车安全密钥协商和加密通信通道建立的过程。这个 chiper suite 代表了加密过程中用到的算法组合：
+TLS 握手（以 TLS1.2 为例使用套件 TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384）是一个安全密钥协商和加密通信通道建立的过程。这个 chiper suite 代表了加密过程中用到的算法组合：
 
 - ECDHE: 椭圆曲线 Diffie-Hellman Ephemeral，用于密钥交换，产生共享密钥 `shared_secret`
 - RSA: 用于认证，服务端用 RSA 私钥签名验证自己身份
