@@ -231,3 +231,36 @@ s_hs_traffic_secret = HKDF_Expand_Label(
 
 所以 client_random / server_random 的作用 是通过 transcript hash 间接参与 HKDF，保证 handshake secret 不可预测。
 
+#### ECDHE
+
+ECDH 全称是 Elliptic Curve Diffie–Hellman，中文一般叫**椭圆曲线 Diffie-Hellman 密钥交换算法**，它不是一个「加密算法」，而是一个**密钥交换算法（key exchange algorithm）**，让通信双方安全地协商出一个共享密钥，然后这个密钥可以用来进行对称加密（比如 AES）。
+
+双方各自生成一个公钥和私钥，然后通过对方的公钥和自己的私钥进行椭圆曲线点乘，算出一个相同的共享秘密（shared secret）。因为椭圆曲线离散对数问题非常难，所以即使有人截获公钥，也无法推算出共享密钥。
+
+伪代码如下:
+
+```
+选定椭圆曲线参数（例如 secp256r1）
+
+# Alice 生成密钥对
+Alice_private = random(1, n-1)
+Alice_public = Alice_private * G
+
+# Bob 生成密钥对
+Bob_private = random(1, n-1)
+Bob_public = Bob_private * G
+
+# 双方交换公钥
+# Alice 收到 Bob_public
+# Bob 收到 Alice_public
+
+# 各自计算共享密钥
+Alice_shared = Alice_private * Bob_public
+Bob_shared   = Bob_private * Alice_public
+
+# 因为 (Alice_private * Bob_public) == (Bob_private * Alice_public)
+# 所以共享密钥相同
+```
+
+然后可以再对 shared_secret 进行哈希或 HKDF 导出成对称加密密钥，例如：`shared_key = HKDF(shared_secret, salt, info, output_length=32)`.
+
