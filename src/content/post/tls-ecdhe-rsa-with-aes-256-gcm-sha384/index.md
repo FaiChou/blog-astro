@@ -183,7 +183,7 @@ handshake_secret = HKDF_Extract(salt = zeros(48), IKM = shared_secret)
 
 client_traffic_secret = HKDF_Expand(
     PRK = handshake_secret,
-    info = "c hs traffic", # 
+    info = "c hs traffic", 
     L = 48
 )
 server_traffic_secret = HKDF_Expand(
@@ -198,8 +198,8 @@ server_key = HKDF_Expand(PRK = server_traffic_secret, info = "key", L = 64)
 server_iv = HKDF_Expand(PRK = server_traffic_secret, info = "iv", L = 12)
 ```
 
-当客户端发送消息时 `Encrypt(data, client_key, client_iv)`, 服务端收到后 `Decrypt(data, server_key, server_iv)`。
-反过来，服务器发送消息时用 `server_key/iv`, 客户端解密也用同一套。
+这样客户端和服务器都会生成这四个相同的 key 和 iv。当客户端发送消息时 `AES_256_GCM_Encrypt(data, client_key, client_iv)`, 服务端收到后 `AES_256_GCM_Decrypt(data, client_key, client_iv)`。
+反过来，服务器发送消息时用 `server_key/server_iv`, 客户端解密也用同一套。
 
 #### tls1.3 中 client_random / server_random 用在了什么地方？
 
