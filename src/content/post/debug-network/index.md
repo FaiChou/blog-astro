@@ -42,7 +42,7 @@ Database updated: 2025-11-18 10:50:00
 
 hog 在英文里指“贪婪的家伙(猪)、占资源的东西”，所以 nethogs 是找出哪些进程在疯狂吃网速。可以很直观的看到哪一个进程跑多少网速。
 
-![nethogs](./nethogs.png)
+![nethogs](nethogs.png)
 
 ## iftop
 
@@ -58,7 +58,7 @@ hog 在英文里指“贪婪的家伙(猪)、占资源的东西”，所以 neth
 
 一般建议使用 S 和 D 来开启源端口和目标端口。
 
-![iftop](./iftop.png)
+![iftop](iftop.png)
 
 ## ss
 
