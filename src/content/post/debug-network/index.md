@@ -114,4 +114,19 @@ $ ss dst 8.8.8.8
 
 而 `-r` 参数代表尝试解析主机名, 会将对应的 ip 地址解析为域名，比如 `192.168.1.100:56789     142.251.211.46:443` 会解析为 `my-pc.local:56789       lga34s31-in-f14.1e100.net:https`。
 
-一个进程可能监听某个端口，那么它的状态就是 listen， 可以使用 `-l` 来过滤所有监听状态的 sockets。如果有一个远端服务对其建立了连接，那么它的状态就是 established。当使用 `-a` 参数时，就会包含所有的状态，包括 `established`, `listen`, `time-wait`, `close-wait`, `syn-sent`, `syn-recv`, `fin-wait-1`, `fin-wait-2` 等。
+一个进程可能监听某个端口，那么它的状态就是 listen， 可以使用 `-l` 来过滤所有监听状态的 sockets。如果有一个远端服务对其建立了连接，那么它的状态就是 established。当使用 `-a` 参数时，就会包含所有的状态，包括 `established`, `listen`, `time-wait`, `close-wait`, `syn-sent`, `syn-recv`, `fin-wait-1`, `fin-wait-2` 等。另外，不止是 tcp 和 udp， UNIX socket 也会被 `ss -a` 命令显示出来。要想单独显示 unix socket，可以使用 `-x` 参数。
+
+而 ss -s 的统计则不包括 unix socket，只统计 INET:
+
+```
+ $ ss -s
+Total: 393
+TCP:   390 (estab 240, closed 134, orphaned 0, timewait 122)
+
+Transport Total     IP        IPv6
+RAW	  0         0         0
+UDP	  3         0         3
+TCP	  256       97        159
+INET	  259       97        162
+FRAG	  0         0         0
+```
