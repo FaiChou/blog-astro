@@ -1,9 +1,9 @@
-```
+---
 title: "Debug network on linux"
 publishDate: "2025-11-18"
 description: "Debug network on linux"
 tags: ["linux", "network", "http"]
-```
+---
 
 ## nload
 
