@@ -22,3 +22,4 @@ publishDate: "2021-03-29T11:23:00Z"
 - [TinyShield](https://tinyshield.proxyman.com/)
 - [bruno](https://www.usebruno.com/)
 - [insomnia](https://insomnia.rest/)
+- [proxifier](https://www.proxifier.com/new/mac.html)
