@@ -139,6 +139,8 @@ server {
 }
 ```
 
+set_real_ip_from 的作用是告诉 nginx 哪些是可信的 ip 段。Nginx 只会接受来自这些可信地址的请求中所携带的真实 IP 信息。
+
 所有的 cf ip 可以在这里找到: https://www.cloudflare.com/zh-cn/ips/
 
 另外也可以通过 api 获取: https://api.cloudflare.com/client/v4/ips
