@@ -15,7 +15,7 @@ tags: ["devops"]
 
 我配置了两条规则:
 
-### 1. Malicious traffic
+### Malicious traffic
 
 ```
 (http.host in {"subdomain1.faichou.com" "subdomain2.faichou.com"}) 
@@ -29,7 +29,7 @@ and
 
 如果匹配到恶意流量，则会触发 cf 的盾。具体规则解释是: 针对 subdomain1 和 subdomain2 的请求，如果威胁分数大于 5 并且不是 cf bot 的请求，或者请求版本不是 HTTP/2 或 HTTP/3，或者请求的 IP 地址不是上述几个国家地区则触发。
 
-### 2. 10 seconds, 200 rate limit
+### 10 seconds, 200 rate limit
 
 ```
 (http.request.uri.path contains "/")
