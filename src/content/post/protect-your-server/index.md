@@ -145,4 +145,30 @@ set_real_ip_from 的作用是告诉 nginx 哪些是可信的 ip 段。Nginx 只�
 
 另外也可以通过 api 获取: https://api.cloudflare.com/client/v4/ips
 
-除此之外，也可以使用 https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker 这个专业的工具来防护恶意流量。
+除此之外，也可以使用 https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker 这个专业的工具来阻挡恶意流量。
+
+## 4. 一种更彻底简单的做法
+
+```
+# 1. 监听 80 和 443 的默认 server（即没有匹配到任何 server_name 的请求）
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
+    server_name _;
+    return 444;
+}
+
+# 2. 正常的站点配置（必须明确写 server_name）
+server {
+    listen 80;
+    listen 443 ssl;
+    server_name subdomain1.faichou.com subdomain2.faichou.com www.faichou.com;
+
+    # 这里是真正的反代配置
+    ...
+}
+```
+
+任何直接访问服务器 IP（无论 80 还是 443）的请求，都会被这个 default_server 捕获，直接 return 444，攻击者根本拿不到任何有效响应，连 404 页面都不会返回，日志里也不会出现这些请求。
