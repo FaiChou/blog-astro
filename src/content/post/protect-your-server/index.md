@@ -152,12 +152,14 @@ set_real_ip_from 的作用是告诉 nginx 哪些是可信的 ip 段。Nginx 只�
 ```
 # 1. 监听 80 和 443 的默认 server（即没有匹配到任何 server_name 的请求）
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    listen 443 ssl default_server;
-    listen [::]:443 ssl default_server;
-    server_name _;
-    return 444;
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  listen 443 default_server;
+  listen [::]:443 default_server;
+  ssl_certificate /etc/nginx/ssl/fake1.crt;
+  ssl_certificate_key /etc/nginx/ssl/fake1.key;
+  server_name _;
+  return 444;
 }
 
 # 2. 正常的站点配置（必须明确写 server_name）
@@ -171,4 +173,4 @@ server {
 }
 ```
 
-任何直接访问服务器 IP（无论 80 还是 443）的请求，都会被这个 default_server 捕获，直接 return 444，攻击者根本拿不到任何有效响应，连 404 页面都不会返回，日志里也不会出现这些请求。
+任何直接访问服务器 IP（无论 80 还是 443）的请求，都会被这个 default_server 捕获，直接 return 444，攻击者根本拿不到任何有效响应，连 404 页面都不会返回。
