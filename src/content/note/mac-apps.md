@@ -18,8 +18,6 @@ publishDate: "2021-03-29T11:23:00Z"
 - [Stats](https://github.com/exelban/stats)
 - [1Capture](https://docs-1c.hapigo.com/)
 - [LunarBar](https://github.com/LunarBar-app/LunarBar)
-- [Radio Silence](https://radiosilenceapp.com/)
-- [TinyShield](https://tinyshield.proxyman.com/)
 - [bruno](https://www.usebruno.com/)
 - [insomnia](https://insomnia.rest/)
 - [proxifier](https://www.proxifier.com/new/mac.html)
