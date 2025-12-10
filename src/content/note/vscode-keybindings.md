@@ -14,11 +14,6 @@ publishDate: "2024-12-27T11:52:00Z"
   { "key": "cmd+6","command": "workbench.action.openEditorAtIndex6" },
   { "key": "cmd+7","command": "workbench.action.openEditorAtIndex7" },
   { "key": "cmd+8","command": "workbench.action.openEditorAtIndex8" },
-  { "key": "cmd+9", "command": "workbench.action.openEditorAtIndex9" },
-  {
-    "key": "tab",
-    "command": "-acceptSelectedSuggestion",
-    "when": "suggestWidgetHasFocusedSuggestion && suggestWidgetVisible && textInputFocus"
-  }
+  { "key": "cmd+9", "command": "workbench.action.openEditorAtIndex9" }
 ]
 ```
