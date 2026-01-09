@@ -1,7 +1,7 @@
 ---
 title: "blockchain and wallet"
 publishDate: "2025-10-23"
-description: "Nockchain 区块链和钱包"
+description: "Nockchain 挖矿入门指南：理解 UTXO 模型、交易结构（Note/Lock/Source）、钱包工作原理，以及如何归集矿池奖励"
 tags: ["btc", "blockchain", "web3", "UTXO"]
 ---
 

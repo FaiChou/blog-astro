@@ -1,6 +1,6 @@
 ---
 title: "Service Worker and Refract-Sign"
-description: "Service Worker and Refract-Sign"
+description: "逆向分析网站如何利用 Service Worker 实现请求签名防护：动态 key 更新机制、RSA 挑战验证流程，以及 Chrome DevTools 调试技巧"
 publishDate: "2026-01-09"
 tags: ["devops", "javascript", "cryptology"]
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Turnstile and Solver"
-description: "Turnstile and Solver"
+description: "深入分析 Cloudflare Turnstile 人机验证的工作原理，介绍三种获取 sitekey/action 参数的调试方法，以及自动化绕过方案"
 publishDate: "2026-01-07"
 tags: ["devops"]
 ---

@@ -1,7 +1,7 @@
 ---
 title: "虚拟内存"
 publishDate: "2025-01-13"
-description: "虚拟内存"
+description: "为什么需要虚拟内存（内存不足、地址不连续、安全隔离），以及地址映射的简单实现原理"
 tags: ["os", "linux", "virtual memory"]
 ---
 

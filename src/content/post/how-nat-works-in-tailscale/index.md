@@ -1,7 +1,7 @@
 ---
 title: "How NAT works in Tailscale"
 publishDate: "2025-01-14"
-description: "Tailscale 为了保证连通性使用了哪些黑魔法"
+description: "深入理解 Tailscale NAT 穿透：iptables 基础、NAT 类型对比（Symmetric/Fullcone/Restricted）、打洞原理与生日悖论优化策略"
 tags: ["tailscale", "nat", "http", "linux"]
 ---
 

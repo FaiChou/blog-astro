@@ -1,7 +1,7 @@
 ---
 title: "LLM for Beginners"
 publishDate: "2025-02-20"
-description: "LLM for Beginners"
+description: "大语言模型入门：理解 Transformer 架构与训练流程（预训练、SFT、RLHF），使用 Ollama 本地部署，以及 RAG 检索增强生成的原理"
 tags: ["llm", "ai", "chatgpt", "deepseek"]
 ---
 

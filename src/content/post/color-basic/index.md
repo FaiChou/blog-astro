@@ -1,6 +1,6 @@
 ---
 title: "Color basic"
-description: "Color basic"
+description: "从物理学和生物学角度理解颜色：人眼视锥细胞、RGB与YCbCr色彩空间、视频颜色处理流程、CIE色度图、Gamma校正与白点"
 publishDate: "2026-01-08"
 tags: ["color"]
 ---

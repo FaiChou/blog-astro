@@ -1,6 +1,6 @@
 ---
 title: "Protect Your Server"
-description: "Protect Your Server"
+description: "服务器安全防护实战：配置 Cloudflare WAF 规则、使用 fail2ban 防护 nginx、防止 X-Forwarded-For 伪造，以及 default_server 拦截策略"
 publishDate: "2025-11-28"
 tags: ["devops"]
 ---

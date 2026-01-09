@@ -1,7 +1,7 @@
 ---
 title: "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
 publishDate: "2025-10-29"
-description: "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
+description: "深入解析 TLS 握手流程与密码套件：ECDHE 密钥交换、RSA 身份认证、AES-GCM 认证加密、HKDF 密钥派生，以及 TLS 1.2/1.3 的差异"
 tags: ["tls", "https", "openssl", "cryptology"]
 ---
 

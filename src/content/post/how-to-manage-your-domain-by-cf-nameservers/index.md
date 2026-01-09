@@ -1,7 +1,7 @@
 ---
 title: "How to manage your domain by changing Cloudflare Nameservers"
 publishDate: "2025-08-14"
-description: "How to manage your domain by changing Cloudflare Nameservers"
+description: "揭秘 Cloudflare 域名 Nameservers 的修改限制，分析 NS 碰撞接管攻击的原理以及 Cloudflare 的防护机制"
 tags: ["cloudflare", "devops"]
 ---
 

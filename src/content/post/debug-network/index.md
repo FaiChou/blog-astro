@@ -1,7 +1,7 @@
 ---
 title: "Debug network on linux"
 publishDate: "2025-11-18"
-description: "Debug network on linux"
+description: "Linux 网络调试工具详解：nload 实时监控、vnstat 流量统计、nethogs 进程流量、iftop 连接带宽、ss 套接字分析"
 tags: ["linux", "network", "http"]
 ---
 
