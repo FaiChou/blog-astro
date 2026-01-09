@@ -81,6 +81,8 @@ const sign = sha1(key + url + method + userAgent);
 
 在 Sources 面板中，点击右上角的三个点，选择 More Tools -> Search，可以对网站加载的所有资源进行全局搜索，包括 js、html、css、Service Worker 以及第三方插件的代码。这对于查找某个关键字的定义或使用位置非常方便。
 
+![devtool-source-open-search](devtool-source-open-search.png)
+
 ### 4. Network 下面的小齿轮请求
 
 在 Network 面板中，每条请求旁边如果带有一个小齿轮图标，说明这是由 Service Worker 代理转发（fetch/intercept）出来的请求。如果此请求也被 Service Worker 捕获并处理，那么你在 Network 里只会看到一条带小齿轮的记录。
