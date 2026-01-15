@@ -22,11 +22,11 @@ TLS 握手（以 TLS1.2 为例使用套件 TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 
 2. 服务端响应 server hello, 服务器会选择一个 ciper suite, 生成 `server_random`，返回服务端证书（RSA 公钥），并指明要用的椭圆曲线（curve，比如 x25519, p256, p384, p521）
 
-3. 使用 ECDHE, 则服务器发送 Server Key Exchange, 服务器生成一堆临时的椭圆曲线密钥对(sk_s, pk_s), 将公钥 pk_s 发送给客户端，并用 RSA 私钥对其签名
+3. 使用 ECDHE, 则服务器发送 Server Key Exchange, 服务器生成一对临时的椭圆曲线密钥对(sk_s, pk_s), 将公钥 pk_s 发送给客户端，并用 RSA 私钥对其签名
 
 4. 服务器会发送 Server Hello Done，告知客户端，它的初始问候消息发送完毕
 
-5. 客户端 Client Key Exchange, 客户端也生成一堆临时椭圆曲线密钥（sk_c, pk_c）, 把公钥 pk_c 发送给服务器
+5. 客户端 Client Key Exchange, 客户端也生成一对临时椭圆曲线密钥（sk_c, pk_c）, 把公钥 pk_c 发送给服务器
 
 6. 客户端和服务器互相发送 Change Cipher Spec, 告知对方，后续的通信将使用对称加密, 并发送 Finished 包，告知对方，握手完成
 
@@ -78,6 +78,41 @@ SHA 开头的都是哈希算法，比如 SHA256, SHA384, SHA512，后面的数�
 #### RSA 非对称加密算法
 
 需要一对公私钥，公钥公开，私钥保密。一般情况下，公钥用于加密，私钥用于解密。但也可以反过来，私钥加密，公钥解密，比如签名认证。可以通过私钥来计算出公钥。
+
+##### TLS 1.2 中 RSA 的身份认证过程
+
+在 TLS 1.2 握手中，RSA 真正参与运算的地方是**数字签名**与**验签**。为了防止中间人攻击（MITM），服务器必须证明当前的临时公钥 pk_s 确实是它自己发出的。
+
+**服务端的动作（签名）：**
+
+- **输入**：服务器会将 `client_random + server_random + Server Params`（即临时公钥 pk_s 及其参数）拼接在一起
+- **处理**：先用 SHA384 做哈希，再用服务器的 RSA 私钥对哈希值进行加密，生成数字签名
+- **输出**：随 pk_s 一起发送给客户端
+
+```
+signature = RSA_Private_Encrypt(SHA384(client_random || server_random || server_params))
+```
+
+**客户端的动作（验签）：**
+
+- **输入**：收到 pk_s 和数字签名
+- **处理**：使用证书中的 RSA 公钥解密签名，得到哈希值
+- **对比**：客户端自己也根据已知的 `client_random`、`server_random` 和 pk_s 计算一遍哈希
+
+```
+expected_hash = SHA384(client_random || server_random || server_params)
+received_hash = RSA_Public_Decrypt(signature)
+
+if expected_hash == received_hash:
+    验证通过：这个 pk_s 确实是拥有对应私钥的服务器发出的，且中途没有被篡改
+else:
+    验证失败：可能遭受中间人攻击
+```
+
+通过这个签名验证机制，客户端可以确认：
+1. 临时公钥 pk_s 确实来自持有对应 RSA 私钥的服务器
+2. 传输过程中数据没有被篡改
+3. 通信对象确实是证书所声明的服务器
 
 #### AES 对称加密算法
 
