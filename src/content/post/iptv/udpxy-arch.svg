@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+    </marker>
+  </defs>
+
+  <text x="400" y="40" font-family="Monaco, Consolas, monospace" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">udpxy Internal Architecture</text>
+
+  <!-- Client Section -->
+  <g transform="translate(50, 200)">
+    <rect x="0" y="0" width="100" height="60" rx="5" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+    <text x="50" y="25" text-anchor="middle" font-size="12" font-weight="bold">Client</text>
+    <text x="50" y="45" text-anchor="middle" font-size="10">VLC / Player</text>
+  </g>
+
+  <path d="M150,230 L200,230" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="175" y="220" text-anchor="middle" font-size="10">HTTP GET</text>
+
+  <!-- udpxy Main Process -->
+  <g transform="translate(200, 100)">
+    <rect x="0" y="0" width="500" height="400" rx="10" fill="#fff" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="250" y="30" text-anchor="middle" font-family="Monaco, monospace" font-size="16" font-weight="bold">udpxy Daemon Process</text>
+
+    <!-- Accept Hook -->
+    <rect x="40" y="60" width="140" height="40" rx="3" fill="#eeeeee" stroke="#666"/>
+    <text x="110" y="85" text-anchor="middle" font-family="Monaco, monospace" font-size="12">accept() HTTP</text>
+
+    <!-- Setup Multicast -->
+    <rect x="40" y="130" width="160" height="50" rx="3" fill="#fff9c4" stroke="#fbc02d"/>
+    <text x="120" y="150" text-anchor="middle" font-family="Monaco, monospace" font-size="11">netop.c / setup_mcast</text>
+    <text x="120" y="170" text-anchor="middle" font-family="Monaco, monospace" font-size="10">setsockopt(IP_ADD_MEMBERSHIP)</text>
+
+    <path d="M110,100 L110,130" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Kernel Interaction -->
+    <path d="M0,155 L-40,155" stroke="#fbc02d" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="-20" y="145" text-anchor="middle" font-size="10" fill="#f9a825">IGMP Report</text>
+
+    <!-- Data Loop -->
+    <rect x="250" y="130" width="220" height="200" rx="5" fill="#e8eaf6" stroke="#3f51b5"/>
+    <text x="360" y="155" text-anchor="middle" font-weight="bold" font-size="12">relay_traffic Loop (udpxy.c)</text>
+
+    <!-- Read -->
+    <rect x="270" y="170" width="180" height="30" rx="3" fill="#fff" stroke="#333"/>
+    <text x="360" y="190" text-anchor="middle" font-family="Monaco, monospace" font-size="11">read_data() -> UDP Socket</text>
+    
+    <!-- Buffer -->
+    <path d="M360,200 L360,220" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="300" y="220" width="120" height="30" fill="#ddd" stroke="none"/>
+    <text x="360" y="240" text-anchor="middle" font-size="10" font-family="monospace">Circular Buffer</text>
+
+    <!-- Write -->
+    <path d="M360,250 L360,270" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="270" y="270" width="180" height="30" rx="3" fill="#fff" stroke="#333"/>
+    <text x="360" y="290" text-anchor="middle" font-family="Monaco, monospace" font-size="11">write_data() -> TCP Socket</text>
+
+  </g>
+
+  <!-- Outside Multicast Traffic -->
+  <g transform="translate(60, 400)">
+    <text x="50" y="20" text-anchor="middle" font-weight="bold">Multicast Source</text>
+    <path d="M100,20 L190,20" stroke="#f44336" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
+    <text x="145" y="40" text-anchor="middle" font-size="10" fill="#f44336">UDP Packets (MPEG-TS)</text>
+  </g>
+
+</svg>
