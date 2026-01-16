@@ -1,67 +1,118 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+      <polygon points="0 0, 10 3.5, 0 7" class="fill-main" />
     </marker>
   </defs>
+  <style>
+    .text-title { fill: #333; }
+    .text-main { fill: #333; }
+    .text-sub { fill: #555; }
+    .stroke-main { stroke: #333; }
+    .fill-main { fill: #333; }
 
-  <text x="400" y="40" font-family="Monaco, Consolas, monospace" font-size="22" font-weight="bold" text-anchor="middle" fill="#333">udpxy Internal Architecture</text>
+    .fill-blue-light { fill: #e3f2fd; }
+    .stroke-blue { stroke: #2196f3; }
+    
+    .fill-bg-white { fill: #fff; }
+    .fill-bg-gray { fill: #eeeeee; }
+    .fill-bg-yellow { fill: #fff9c4; }
+    .fill-bg-indigo { fill: #e8eaf6; }
+
+    .stroke-yellow { stroke: #fbc02d; }
+    .stroke-indigo { stroke: #3f51b5; }
+    .stroke-gray { stroke: #666; }
+
+    .text-yellow-dark { fill: #f9a825; }
+    .text-red { fill: #f44336; }
+    .stroke-red { stroke: #f44336; }
+
+    .fill-buf { fill: #ddd; }
+
+    @media (prefers-color-scheme: dark) {
+      .text-title { fill: #eee; }
+      .text-main { fill: #eee; }
+      .text-sub { fill: #bbb; }
+      .stroke-main { stroke: #ccc; }
+      .fill-main { fill: #ccc; }
+
+      .fill-blue-light { fill: #0d47a1; }
+      .stroke-blue { stroke: #64b5f6; }
+      
+      .fill-bg-white { fill: #424242; }
+      .fill-bg-gray { fill: #616161; }
+      .fill-bg-yellow { fill: #f57f17; } /* Darker yellow/orange for background */
+      .fill-bg-indigo { fill: #1a237e; }
+
+      .stroke-yellow { stroke: #ffd54f; }
+      .stroke-indigo { stroke: #7986cb; }
+      .stroke-gray { stroke: #bdbdbd; }
+
+      .text-yellow-dark { fill: #fff59d; } /* Lighter yellow for text */
+      .text-red { fill: #ef5350; }
+      .stroke-red { stroke: #ef5350; }
+      
+      .fill-buf { fill: #616161; }
+    }
+  </style>
+
+  <text x="400" y="40" font-family="Monaco, Consolas, monospace" font-size="22" font-weight="bold" text-anchor="middle" class="text-title">udpxy Internal Architecture</text>
 
   <!-- Client Section -->
   <g transform="translate(50, 200)">
-    <rect x="0" y="0" width="100" height="60" rx="5" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
-    <text x="50" y="25" text-anchor="middle" font-size="12" font-weight="bold">Client</text>
-    <text x="50" y="45" text-anchor="middle" font-size="10">VLC / Player</text>
+    <rect x="0" y="0" width="100" height="60" rx="5" class="fill-blue-light stroke-blue" stroke-width="2"/>
+    <text x="50" y="25" text-anchor="middle" font-size="12" font-weight="bold" class="text-main">Client</text>
+    <text x="50" y="45" text-anchor="middle" font-size="10" class="text-main">VLC / Player</text>
   </g>
 
-  <path d="M150,230 L200,230" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-  <text x="175" y="220" text-anchor="middle" font-size="10">HTTP GET</text>
+  <path d="M150,230 L200,230" class="stroke-main" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="175" y="220" text-anchor="middle" font-size="10" class="text-main">HTTP GET</text>
 
   <!-- udpxy Main Process -->
   <g transform="translate(200, 100)">
-    <rect x="0" y="0" width="500" height="400" rx="10" fill="#fff" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
-    <text x="250" y="30" text-anchor="middle" font-family="Monaco, monospace" font-size="16" font-weight="bold">udpxy Daemon Process</text>
+    <rect x="0" y="0" width="500" height="400" rx="10" class="fill-bg-white stroke-main" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="250" y="30" text-anchor="middle" font-family="Monaco, monospace" font-size="16" font-weight="bold" class="text-main">udpxy Daemon Process</text>
 
     <!-- Accept Hook -->
-    <rect x="40" y="60" width="140" height="40" rx="3" fill="#eeeeee" stroke="#666"/>
-    <text x="110" y="85" text-anchor="middle" font-family="Monaco, monospace" font-size="12">accept() HTTP</text>
+    <rect x="40" y="60" width="140" height="40" rx="3" class="fill-bg-gray stroke-gray"/>
+    <text x="110" y="85" text-anchor="middle" font-family="Monaco, monospace" font-size="12" class="text-main">accept() HTTP</text>
 
     <!-- Setup Multicast -->
-    <rect x="40" y="130" width="160" height="50" rx="3" fill="#fff9c4" stroke="#fbc02d"/>
-    <text x="120" y="150" text-anchor="middle" font-family="Monaco, monospace" font-size="11">netop.c / setup_mcast</text>
-    <text x="120" y="170" text-anchor="middle" font-family="Monaco, monospace" font-size="10">setsockopt(IP_ADD_MEMBERSHIP)</text>
+    <rect x="40" y="130" width="160" height="50" rx="3" class="fill-bg-yellow stroke-yellow"/>
+    <text x="120" y="150" text-anchor="middle" font-family="Monaco, monospace" font-size="11" class="text-main">netop.c / setup_mcast</text>
+    <text x="120" y="170" text-anchor="middle" font-family="Monaco, monospace" font-size="10" class="text-main">setsockopt(IP_ADD_MEMBERSHIP)</text>
 
-    <path d="M110,100 L110,130" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M110,100 L110,130" class="stroke-main" stroke-width="2" marker-end="url(#arrow)"/>
 
     <!-- Kernel Interaction -->
-    <path d="M0,155 L-40,155" stroke="#fbc02d" stroke-width="2" marker-end="url(#arrow)"/>
-    <text x="-20" y="145" text-anchor="middle" font-size="10" fill="#f9a825">IGMP Report</text>
+    <path d="M0,155 L-40,155" class="stroke-yellow" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="-20" y="145" text-anchor="middle" font-size="10" class="text-yellow-dark">IGMP Report</text>
 
     <!-- Data Loop -->
-    <rect x="250" y="130" width="220" height="200" rx="5" fill="#e8eaf6" stroke="#3f51b5"/>
-    <text x="360" y="155" text-anchor="middle" font-weight="bold" font-size="12">relay_traffic Loop (udpxy.c)</text>
+    <rect x="250" y="130" width="220" height="200" rx="5" class="fill-bg-indigo stroke-indigo"/>
+    <text x="360" y="155" text-anchor="middle" font-weight="bold" font-size="12" class="text-main">relay_traffic Loop (udpxy.c)</text>
 
     <!-- Read -->
-    <rect x="270" y="170" width="180" height="30" rx="3" fill="#fff" stroke="#333"/>
-    <text x="360" y="190" text-anchor="middle" font-family="Monaco, monospace" font-size="11">read_data() -> UDP Socket</text>
+    <rect x="270" y="170" width="180" height="30" rx="3" class="fill-bg-white stroke-main"/>
+    <text x="360" y="190" text-anchor="middle" font-family="Monaco, monospace" font-size="11" class="text-main">read_data() -> UDP Socket</text>
     
     <!-- Buffer -->
-    <path d="M360,200 L360,220" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-    <rect x="300" y="220" width="120" height="30" fill="#ddd" stroke="none"/>
-    <text x="360" y="240" text-anchor="middle" font-size="10" font-family="monospace">Circular Buffer</text>
+    <path d="M360,200 L360,220" class="stroke-main" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="300" y="220" width="120" height="30" class="fill-buf" stroke="none"/>
+    <text x="360" y="240" text-anchor="middle" font-size="10" font-family="monospace" class="text-main">Circular Buffer</text>
 
     <!-- Write -->
-    <path d="M360,250 L360,270" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-    <rect x="270" y="270" width="180" height="30" rx="3" fill="#fff" stroke="#333"/>
-    <text x="360" y="290" text-anchor="middle" font-family="Monaco, monospace" font-size="11">write_data() -> TCP Socket</text>
+    <path d="M360,250 L360,270" class="stroke-main" stroke-width="2" marker-end="url(#arrow)"/>
+    <rect x="270" y="270" width="180" height="30" rx="3" class="fill-bg-white stroke-main"/>
+    <text x="360" y="290" text-anchor="middle" font-family="Monaco, monospace" font-size="11" class="text-main">write_data() -> TCP Socket</text>
 
   </g>
 
   <!-- Outside Multicast Traffic -->
   <g transform="translate(60, 400)">
-    <text x="50" y="20" text-anchor="middle" font-weight="bold">Multicast Source</text>
-    <path d="M100,20 L190,20" stroke="#f44336" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
-    <text x="145" y="40" text-anchor="middle" font-size="10" fill="#f44336">UDP Packets (MPEG-TS)</text>
+    <text x="50" y="20" text-anchor="middle" font-weight="bold" class="text-main">Multicast Source</text>
+    <path d="M100,20 L190,20" class="stroke-red" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
+    <text x="145" y="40" text-anchor="middle" font-size="10" class="text-red">UDP Packets (MPEG-TS)</text>
   </g>
 
 </svg>
