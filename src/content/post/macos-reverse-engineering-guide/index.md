@@ -65,7 +65,76 @@ void process_secure_config() {
 2. 读完之后，数据传给了哪个 `sub_xxx`
 3. 哪些函数看起来在“处理一整块 buffer”（循环、位运算、memcpy）
 
-## 三、lldb：动态分析阶段的核心概念
+
+
+## 三、静态分析的盲区与系统级监控
+
+有些应用内，如果读取了某个文件（比如 `appsettings`），我们可以尝试用 `strings xxx | grep appsettings` 来查找。但在 macOS 上，这个方法并不总是有效，原因有二：
+
+1.  **主程序只是个壳**：真正的业务逻辑（包括读取配置）可能写在它自带的 Framework 里。
+2.  **语言特性的干扰**：比如 Swift 的 Name Mangling（名称修饰）。代码中可能没有硬编码字符串路径，而是定义了一个变量 `appSettingsURL`，运行时再拼接。
+
+例如，直接对 Framework 搜索 `appsettings`，可能只能看到被修饰后的变量名：
+
+```bash
+$ strings /Applications/XXX.app/Contents/Frameworks/XXXCore.framework/Versions/A/XXXCore | grep -i "appsettings"
+_TtC17XXXCore17AppSettingService
+appSettingService
+appSettingsURL
+```
+
+这时候，静态扫描就显得力不从心了。我们需要用系统级监控工具来确认程序“到底有没有读这个文件”。
+
+### 1. lsof (List Open Files)
+
+查看某个进程当前正打开了哪些文件。适合用来验证“文件句柄是否一直被持有”。
+
+```bash
+# 找到进程 PID
+pgrep -f XXX
+
+# 查看该进程打开的所有文件
+lsof -p <PID> | grep "appsettings"
+```
+
+### 2. fs_usage
+
+相比 `lsof` 的静态快照，`fs_usage` 是动态的，它能监控文件系统的实时读写操作。适合捕捉“瞬间读取然后关闭”的行为。
+
+```bash
+# 监控包含 "XXX" 名字的进程的文件系统活动
+sudo fs_usage -w -f filesys | grep "XXX"
+```
+
+通过这两个命令，你可以百分百确认目标程序是否读取了你的目标文件，以及是哪个子进程在读。
+
+## 四、前置障碍：无法附加调试器怎么办
+
+macOS 的 SIP (System Integrity Protection) 或 AMFI (Apple Mobile File Integrity) 机制阻止了调试器挂载到受保护的应用上。对于正式开发者签名且包含敏感权限的应用，系统默认是不允许 lldb 直接注入的:
+
+> error: process exited with status -1 (attach failed (Not allowed to attach to process.  Look in the console messages (Console.app), near the debugserver entries, when the attach failed.  The subsystem that denied the attach permission will likely have logged an informative message about why it was denied.))
+
+但是可以通过**剥离签名**和**重新签名**来让它变得可调试：
+
+**1. 给二进制文件剥离签名**
+
+```bash
+# 移除主程序的签名限制
+codesign --remove-signature "/Applications/XXX.app/Contents/MacOS/XXX"
+
+# 移除关键 Framework 的签名（这是最重要的，因为逻辑在里面）
+codesign --remove-signature "/Applications/TXXX.app/Contents/Frameworks/XXXXCore.framework/Versions/A/XXX"
+```
+
+**2. 重新赋予调试权限（自签名）**
+
+执行以下命令给它签一个临时的名，这样它就能在你的本地环境下运行且允许调试：
+
+```bash
+sudo codesign --force --deep --sign - "/Applications/XXX.app/Contents/MacOS/XXX"
+```
+
+## 五、lldb：动态分析阶段的核心概念
 
 使用 lldb 启动程序后，最常见的做法是在系统函数上下断点：
 
@@ -90,7 +159,7 @@ bt
 
 逆向真正关心的是 `read` 上面的那一层 `sub_xxx`，因为逻辑都在那里。
 
-## 四、register read：为什么这么重要
+## 六、register read：为什么这么重要
 
 在 macOS x86_64 平台，函数参数通过寄存器传递，而不是压栈。
 
@@ -116,7 +185,7 @@ memory read <buffer>
 
 看到的内容，一定是加密数据，因为 `read` 只负责 IO，不会解密。这一点必须明确。
 
-## 五、如何判断哪个 sub_xxx 是解密函数
+## 七、如何判断哪个 sub_xxx 是解密函数
 
 判断解密函数，最稳妥的方法不是看汇编“像不像算法”，而是观察数据什么时候发生质变。
 
@@ -144,13 +213,13 @@ memory read <buffer>
 
 如果你看到可读字符串、JSON、plist 等结构化内容，就说明你已经站在了“解密完成点”。
 
-## 六、辅助判断方法
+## 八、辅助判断方法
 
 - 如果程序调用了 `_CCCrypt`、`_CCCryptorUpdate` 等 CommonCrypto 接口，几乎可以直接确认是在做加解密。
 - 如果某个函数内部存在大量循环、xor / rol / ror 等位运算，也很可能是在处理加密数据。
 - 在 `memcpy` / `memmove` 上打断点，观察源地址和目标地址，有时能直接捕获“解密后数据被复制”的瞬间。
 
-## 七、关键心法总结
+## 九、关键心法总结
 
 逆向分析中最重要的一点是：
 
