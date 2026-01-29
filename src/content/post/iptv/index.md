@@ -107,7 +107,7 @@ OpenWrt 默认接口：LAN (绑定 br-lan), WAN (绑定 eth1)。
 7. **到达用户**: 数据包到达用户 A 的光猫，透传到路由器。
 8. **协议转换**: `udpxy` 接收到 UDP 数据包，剥离多余头部，封装成 HTTP 响应流，最终呈现在用户 A 的屏幕上。
 
-![diagram](./diagram.jpeg)
+![diagram](./diagram.jpg)
 
 ## 深入源码：udpxy 是怎么工作的？
 
