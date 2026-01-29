@@ -1,6 +1,6 @@
 ---
-title: "From Encrypted Buffer to Plaintext: A macOS Reverse Engineering Guide"
-description: "本文概述了逆向分析 macOS 第三方签名二进制程序的实用工作流，核心目标是获取解密后的明文数据。方法结合静态分析（Hopper）与动态调试（LLDB）。首先通过追踪字符串定位文件读取函数；然后在 LLDB 中对系统调用（如 read）设断点，查看调用栈和寄存器以获取加密数据的内存地址；最关键的一步是对该地址设置写监视点，首次将数据修改为可读明文（如 JSON）的函数即为解密函数。整个流程强调追踪数据流，而非深究算法细节。"
+title: "macOS 逆向实战：从加密到明文"
+description: "结合 Hopper 与 LLDB，通过追踪数据流与内存监视点，获取解密后的明文数据。"
 publishDate: "2026-01-29"
 tags: ["reverse engineering"]
 ---
