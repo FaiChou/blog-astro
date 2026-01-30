@@ -17,11 +17,22 @@ const { pageKey, pageTitle } = Astro.props;
 <div id="Comments"></div>
 
 <script is:inline define:vars={{ pageKey, pageTitle }}>
-	Artalk.init({
+	const getTheme = () => {
+		const storedTheme = typeof localStorage !== "undefined" && localStorage.getItem("theme");
+		const lightModePref = window.matchMedia("(prefers-color-scheme: light)");
+		return storedTheme || (lightModePref.matches ? "light" : "dark");
+	};
+
+	const artalk = Artalk.init({
 		el: "#Comments",
 		pageKey: pageKey,
 		pageTitle: pageTitle,
 		server: "https://artalk.faichou.com",
 		site: "FaiChou's blog",
+		darkMode: getTheme() === "dark",
+	});
+
+	document.addEventListener("theme-change", (e) => {
+		artalk.setDarkMode(e.detail.theme === "dark");
 	});
 </script>
