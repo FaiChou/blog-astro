@@ -219,7 +219,224 @@ memory read <buffer>
 - 如果某个函数内部存在大量循环、xor / rol / ror 等位运算，也很可能是在处理加密数据。
 - 在 `memcpy` / `memmove` 上打断点，观察源地址和目标地址，有时能直接捕获“解密后数据被复制”的瞬间。
 
-## 九、关键心法总结
+## 九、实战演练：使用 LLDB 导出解密后的配置
+
+理论结合实践，下面我们演示一个真实的案例：如何从 `Tiny Shield` 应用中导出解密后的 `appsettings` 配置内容。
+
+### 1. 目标
+
+在应用启动并解密 `~/Library/Application Support/com.proxyman.ProxymanGuard/appsettings` 后，直接从内存中 dump 出解密后的明文 json。
+
+### 2. 原理分析
+
+通过 Hopper 分析发现，`ProxymanGuardCore.framework` 使用了 `CommonCrypto` 的 `CCCrypt` 函数进行解密（op code 为 `kCCDecrypt`）。
+
+`CCCrypt` 的函数原型如下：
+```c
+CCCryptorStatus CCCrypt(
+    CCOperation op,         // kCCEncrypt=0, kCCDecrypt=1
+    CCAlgorithm alg,
+    CCOptions options,
+    const void *key,
+    size_t keyLength,
+    const void *iv,
+    const void *dataIn,
+    size_t dataInLength,
+    void *dataOut,          // <-- 解密后的数据会写到这里
+    size_t dataOutAvailable,
+    size_t *dataOutMoved    // <-- 解密后的实际长度会写到这里
+);
+```
+
+**利用思路：**
+1. 在 `CCCrypt` 入口处下断点，条件是 `op == kCCDecrypt`。
+2. 断下后，从调用栈（Caller Stack）中获取 `dataOut` 指针的地址。
+3. 执行 `finish` 命令，让函数运行完毕（此时解密已完成，数据已写入 `dataOut`）。
+4. 读取 `*dataOutMoved` 获取解密后的实际大小。
+5. 将 `dataOut` 指向的内存区域 dump 到文件。
+
+### 3. Python 辅助脚本
+
+为了自动化这个过程，我们可以编写一个 LLDB Python 脚本 `debug_appsettings_dump_decrypted.py`：
+
+```python
+#!/usr/bin/env python3
+"""
+LLDB 脚本：在 Tiny Shield 使用 CCCrypt 解密后，将解密内容 dump 到文件。
+
+用法（在 lldb 内）：
+  (lldb) command script import /path/to/debug_appsettings_dump_decrypted.py
+  (lldb) run
+"""
+
+import lldb
+
+OUTPUT_PATH = "/tmp/appsettings_decrypted_dump.bin"
+MAX_DUMP_BYTES = 64 * 1024
+PREVIEW_BYTES = 2048
+
+def read_ptr(process, addr):
+    err = lldb.SBError()
+    data = process.ReadMemory(addr, 8, err)
+    if not err.Success() or data is None or len(data) < 8:
+        return None
+    return int.from_bytes(data, "little")
+
+def read_size_t(process, addr):
+    err = lldb.SBError()
+    data = process.ReadMemory(addr, 8, err)
+    if not err.Success() or data is None or len(data) < 8:
+        return None
+    return int.from_bytes(data, "little")
+
+def _stack_arg_offset(debugger):
+    """ARM64: 第 9/10/11 参在 [sp], [sp+8], [sp+16]。x86_64: call 压返回地址，在 [sp+8], [sp+16], [sp+24]。"""
+    triple = debugger.GetSelectedTarget().GetTriple()
+    if "arm64" in triple or "aarch64" in triple:
+        return 0
+    if "x86_64" in triple:
+        return 8
+    return 0
+
+def do_cccrypt_decrypt_dump(debugger, *args):
+    """
+    在 CCCrypt 入口断下时调用（仅 kCCDecrypt）。
+    从 caller 栈取 dataOut/dataOutAvailable/dataOutMoved，
+    执行 finish，读 *dataOutMoved 得到实际长度，dump dataOut 到文件并 continue。
+    """
+    target = debugger.GetSelectedTarget()
+    process = target.GetProcess()
+    thread = process.GetSelectedThread()
+    if not thread:
+        return
+    # ... 省略部分边界检查 ...
+    
+    caller = thread.GetFrameAtIndex(1)
+    sp = caller.GetSP()
+    
+    off = _stack_arg_offset(debugger)
+    # 根据调用约定从栈上获取参数
+    data_out = read_ptr(process, sp + off)
+    data_out_moved_ptr = read_ptr(process, sp + off + 16)
+    
+    if data_out is None:
+        debugger.HandleCommand("continue")
+        return
+
+    # 执行 finish，会阻塞直到停在 caller
+    ci = debugger.GetCommandInterpreter()
+    res = lldb.SBCommandReturnObject()
+    ci.HandleCommand("finish", res)
+    
+    # 此时函数返回，dataOutMovedPtr 指向的内存已被写入实际长度
+    if not process.IsValid(): return
+
+    actual_len = read_size_t(process, data_out_moved_ptr) if data_out_moved_ptr else None
+    
+    # 兜底：如果获取不到长度，就读一个默认最大值
+    if actual_len is None or actual_len <= 0:
+        actual_len = MAX_DUMP_BYTES # 这里简单处理，实际场景需更严谨
+    else:
+        actual_len = min(actual_len, MAX_DUMP_BYTES)
+
+    if data_out and actual_len > 0:
+        err = lldb.SBError()
+        data = process.ReadMemory(data_out, actual_len, err)
+        if err.Success() and data:
+            with open(OUTPUT_PATH, "wb") as f:
+                f.write(data)
+            print(f"[+] Dumped {len(data)} bytes to {OUTPUT_PATH}")
+            # 打印简单的预览
+            try:
+                print(data.decode("utf-8", errors="replace")[:200])
+            except:
+                pass
+
+    debugger.HandleCommand("continue")
+
+def __lldb_init_module(debugger, dict):
+    # 仅在 CCCrypt 且 op == kCCDecrypt(1) 时断
+    debugger.HandleCommand("breakpoint set -n CCCrypt -c '(int)$x0 == 1'")
+    # 断点触发时执行 python 函数
+    debugger.HandleCommand(
+        "breakpoint command add 1 -o 'script import debug_appsettings_dump_decrypted as m; m.do_cccrypt_decrypt_dump(lldb.debugger)'"
+    )
+    print("Breakpoint on CCCrypt(kCCDecrypt) installed.")
+```
+
+### 4. 执行过程
+
+启动 lldb 并加载脚本：
+
+```bash
+lldb "/Applications/Tiny Shield.app/Contents/MacOS/Tiny Shield"
+```
+
+在 lldb 内执行：
+
+```lldb
+(lldb) command script import /path/to/debug_appsettings_dump_decrypted.py
+(lldb) run
+```
+
+当应用触发读取配置的操作时，脚本会自动捕获解密后的数据：
+
+```
+[+] Dumped 323 bytes to /tmp/appsettings_decrypted_dump.bin
+{"isBlockListEnabled":true,"blockRules":"W3siYXBwUGF0aCI6IlwvQXBwbGljYXR...
+```
+
+### 5. 手动操作验证
+
+如果你不想写脚本，也可以手动操作验证。当断点停在 `CCCrypt` 返回位置（Caller）时：
+
+```lldb
+# 查看栈指针 (ARM64)
+(lldb) p/x $sp
+(unsigned long) 0x000000016fdfc340
+
+# 读取 output 长度 (dataOutMovedPtr)
+(lldb) memory read -f pointer $sp+16 -c 1
+0x16fdfc350: 0x000000016fdfc580
+(lldb) memory read 0x000000016fdfc580
+0x16fdfc580: 43 01 00 00 ...  // 0x143 = 323 bytes
+
+# 读取 dataOut 内容
+(lldb) memory read -f pointer $sp -c 1
+0x16fdfc340: 0x00000001010f7e90
+(lldb) memory read -s 1 -c 323 0x01010f7e90
+0x1010f7e90: 7b 22 69 73 42 6c 6f 63 6b 4c 69 73 74 45 6e 61  {"isBlockListEna
+0x1010f7ea0: 62 6c 65 64 22 3a 74 72 75 65 2c 22 62 6c 6f 63  bled":true,"bloc
+0x1010f7eb0: 6b 52 75 6c 65 73 22 3a 22 57 33 73 69 59 58 42  kRules":"W3siYXB
+0x1010f7ec0: 77 55 47 46 30 61 43 49 36 49 6c 77 76 51 58 42  wUGF0aCI6IlwvQXB
+0x1010f7ed0: 77 62 47 6c 6a 59 58 52 70 62 32 35 7a 58 43 39  wbGljYXRpb25zXC9
+0x1010f7ee0: 33 63 48 4e 76 5a 6d 5a 70 59 32 55 75 59 58 42  3cHNvZmZpY2UuYXB
+0x1010f7ef0: 77 49 69 77 69 61 57 51 69 4f 69 49 77 4e 7a 5a  wIiwiaWQiOiIwNzZ
+0x1010f7f00: 44 4e 6a 59 7a 51 53 30 7a 4f 45 5a 44 4c 54 52  DNjYzQS0zOEZDLTR
+0x1010f7f10: 43 4e 6a 49 74 51 55 49 77 52 43 30 35 52 6b 4a  CNjItQUIwRC05RkJ
+0x1010f7f20: 46 52 45 45 32 4f 44 67 79 4e 44 45 69 4c 43 4a  FREE2ODgyNDEiLCJ
+0x1010f7f30: 6c 65 47 56 6a 64 58 52 68 59 6d 78 6c 55 47 46  leGVjdXRhYmxlUGF
+0x1010f7f40: 30 61 43 49 36 49 6c 77 76 51 58 42 77 62 47 6c  0aCI6IlwvQXBwbGl
+0x1010f7f50: 6a 59 58 52 70 62 32 35 7a 58 43 39 33 63 48 4e  jYXRpb25zXC93cHN
+0x1010f7f60: 76 5a 6d 5a 70 59 32 55 75 59 58 42 77 58 43 39  vZmZpY2UuYXBwXC9
+0x1010f7f70: 44 62 32 35 30 5a 57 35 30 63 31 77 76 55 32 68  Db250ZW50c1wvU2h
+0x1010f7f80: 68 63 6d 56 6b 55 33 56 77 63 47 39 79 64 46 77  hcmVkU3VwcG9ydFw
+0x1010f7f90: 76 64 33 42 7a 59 32 78 76 64 57 52 7a 64 6e 49  vd3BzY2xvdWRzdnI
+0x1010f7fa0: 75 59 58 42 77 58 43 39 44 62 32 35 30 5a 57 35  uYXBwXC9Db250ZW5
+0x1010f7fb0: 30 63 31 77 76 54 57 46 6a 54 31 4e 63 4c 33 64  0c1wvTWFjT1NcL3d
+0x1010f7fc0: 77 63 32 4e 73 62 33 56 6b 63 33 5a 79 49 6e 31  wc2Nsb3Vkc3ZyIn1
+0x1010f7fd0: 64 22 7d                                         d"}
+```
+
+然后将其中的 blockRules 内容进行 base64 decode 得出:
+
+```
+[{"appPath":"\/Applications\/wpsoffice.app","id":"076C663A-38FC-4B62-AB0D-9FBEDA688241","executablePath":"\/Applications\/wpsoffice.app\/Contents\/SharedSupport\/wpscloudsvr.app\/Contents\/MacOS\/wpscloudsvr"}]
+```
+
+这恰好是我在 Tiny Shield 中 block 的 wps 应用。
+
+## 十、关键心法总结
 
 逆向分析中最重要的一点是：
 
