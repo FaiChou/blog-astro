@@ -1,0 +1,27 @@
+---
+interface Props {
+	pageKey: string;
+	pageTitle: string;
+}
+
+const { pageKey, pageTitle } = Astro.props;
+---
+
+<!-- CSS -->
+<link href="https://artalk.faichou.com/dist/Artalk.css" rel="stylesheet" />
+
+<!-- JS -->
+<script src="https://artalk.faichou.com/dist/Artalk.js" is:inline></script>
+
+<!-- Artalk -->
+<div id="Comments"></div>
+
+<script is:inline define:vars={{ pageKey, pageTitle }}>
+	Artalk.init({
+		el: "#Comments",
+		pageKey: pageKey,
+		pageTitle: pageTitle,
+		server: "https://artalk.faichou.com",
+		site: "FaiChou's Blog",
+	});
+</script>
