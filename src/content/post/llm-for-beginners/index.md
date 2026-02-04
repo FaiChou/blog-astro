@@ -148,6 +148,65 @@ $ curl http://100.64.0.5:11434/api/generate -d '{
 
 Chat 模型根据 Prompt 中的原始文本或压缩文本生成回答
 
+###  下面是一段 RAG 的伪代码
+
+```
+// ===== 向量数据库中存储的数据结构 =====
+VectorDB = [
+  {
+    id: "doc_1",
+    vector: [0.12, -0.33, 1.05, ...],
+    text: "员工请病假需提供医院证明。",
+    metadata: { source: "员工手册", section: "病假制度" }
+  },
+  {
+    id: "doc_2",
+    vector: [0.10, -0.30, 1.01, ...],
+    text: "病假需在 OA 系统中提交申请。",
+    metadata: { source: "OA 使用说明", section: "请假流程" }
+  },
+  {
+    id: "doc_3",
+    vector: [-0.88, 0.22, -0.14, ...],
+    text: "VPN 用于远程访问公司内网。",
+    metadata: { source: "IT 指南", section: "网络" }
+  }
+]
+
+// ===== 用户提问 =====
+userQuestion = "请病假需要走什么流程？"
+
+// 1. 用户问题向量化
+queryVector = embedding(userQuestion)
+
+// 2. 向量数据库相似度搜索
+top3 = vectorDB.search(queryVector, topK = 3)
+
+// 假设返回结果（已按相似度排序）
+top3 = [
+  {
+    score: 0.86,
+    text: "员工请病假需提供医院证明。",
+    metadata: { source: "员工手册" }
+  },
+  {
+    score: 0.82,
+    text: "病假需在 OA 系统中提交申请。",
+    metadata: { source: "OA 使用说明" }
+  },
+  {
+    score: 0.41,
+    text: "VPN 用于远程访问公司内网。",
+    metadata: { source: "IT 指南" }
+  }
+]
+
+// 3. 系统层判断（阈值过滤）
+usableContext = top3.filter(item => item.score > 0.75)
+
+// 4. 构造 prompt + 调用 LLM
+```
+
 ## References
 
 - [Deep Dive into LLMs like ChatGPT](https://youtu.be/7xTGNNLPyMI?si=xlowBhqKmK2yMPNo)
