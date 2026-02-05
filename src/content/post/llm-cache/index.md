@@ -32,9 +32,11 @@ Transformer 模型在推理时，输入的每一个 token 经过 Attention 层�
 
 Attention 的核心计算公式如下：
 
-$$ Attention(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V $$
+```text
+Attention(Q, K, V) = softmax((Q*K^T)/sqrt(d_k)) * V
+```
 
-简单来说，当前 token 的 **Q** 需要与历史上所有 token 的 **K** 进行点积运算，计算出权重，再对所有的 **V** 进行加权求和。
+简单来说，当前 token 的 **Q** 需要与历史上所有 token 的 **K** 进行点积运算，计算出权重，再对所有的 **V** 进行加权求和，得到新 token。
 
 **关键点在于：**
 对于已经处理过的历史 token，只要它们的位置（Position ID）不变，且模型参数不变，它们生成的 **K** 和 **V** 向量就是固定的。
@@ -72,25 +74,25 @@ $$ Attention(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V $$
 
 缓存带来的算力节省是数量级的。我们以一层 Attention 为例来计算复杂度。
 
-假设上下文长度为 $N$，我们需要生成下一个 token。
+假设上下文长度为 N，我们需要生成下一个 token。
 
 **不使用 KV Cache（全量计算）：**
-每次生成新 token，都需要把历史上所有的 $N$ 个 token 重新算一遍 Attention。
+每次生成新 token，都需要把历史上所有的 N 个 token 重新算一遍 Attention。
 - 第 1 步：算 1 个 token 的 Attention
 - 第 2 步：算 2 个 token 的 Attention
 - ...
-- 第 $N$ 步：算 $N$ 个 token 的 Attention
+- 第 N 步：算 N 个 token 的 Attention
 
-总计算量约为 $\sum_{i=1}^{N} i^2 \approx O(N^3)$ （如果是生成 $N$ 个词的过程）。
-单步生成时，计算量是 $O(N^2)$（因为要算 $N \times N$ 的矩阵）。
+总计算量约为 `Sum(i^2) ≈ O(N^3)` （如果是生成 N 个词的过程）。
+单步生成时，计算量是 `O(N^2)`（因为要算 N * N 的矩阵）。
 
 **使用 KV Cache（增量计算）：**
-历史的 $N$ 个 token 的 KV 已经存在显存里了。
+历史的 N 个 token 的 KV 已经存在显存里了。
 - 新 token 来了，只需要计算它自已的 Q, K, V。
-- 用它的 Q 去乘历史的 $N$ 个 K。
-- 计算量是 $1 \times N$，即 **$O(N)$**。
+- 用它的 Q 去乘历史的 N 个 K。
+- 计算量是 1 * N，即 **`O(N)`**。
 
-这种从 $O(N^2)$ 到 $O(N)$ 的复杂度降低，就是厂商能提供 0.1 倍缓存价格的数学基础。
+这种从 `O(N^2)` 到 `O(N)` 的复杂度降低，就是厂商能提供 0.1 倍缓存价格的数学基础。
 
 ## 四、工程全流程伪代码
 
@@ -158,4 +160,4 @@ LLM 的“缓存”机制并非魔法，而是经典的**空间换时间**策略
 1. **缓存内容**：KV Cache (Attention 层的中间矩阵)。
 2. **物理载体**：GPU 显存 (VRAM)，由推理引擎 (llama.cpp) 管理。
 3. **命中逻辑**：Ollama 通过对比内存中的 Token 序列前缀，利用 Position ID 将计算请求映射到显存中已有的 KV 插槽。
-4. **核心价值**：将 Attention 计算复杂度从 $O(N^2)$ 降至 $O(N)$，从而大幅降低了长文本推理的延迟与成本。
+4. **核心价值**：将 Attention 计算复杂度从 `O(N^2)` 降至 `O(N)`，从而大幅降低了长文本推理的延迟与成本。
