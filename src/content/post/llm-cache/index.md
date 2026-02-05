@@ -2,7 +2,7 @@
 title: "LLM 缓存机制：从计费到原理"
 description: "探讨 LLM 的缓存机制（KV Cache），从工程角度解释自回归模型的算力优化原理，以及 Ollama、llama.cpp 和 Transformer 在其中的协作关系。"
 publishDate: "2026-02-05"
-tags: ["llm", "cache", "kv-cache", "inference"]
+tags: ["llm"]
 ---
 
 在查看大模型 API 的调用日志时，经常会在计费详情里看到**缓存命中（Cache Hit）**。
