@@ -87,6 +87,8 @@ K = X @ Wk  # 同上
 V = X @ Wv  # 同上
 ```
 
+> 实际在 PyTorch 等框架中，为了效率通常是将 Wq、Wk、Wv 拼成一个大矩阵 W_qkv `(4096, 4096×3)`，一次矩阵乘法 `X @ W_qkv` 算完再拆分成 Q、K、V，效果等价但更快。
+
 直观理解：
 
 - **Q（Query）**："我该关注谁？"
@@ -138,7 +140,7 @@ output = scores @ V  # (4, 4) @ (4, 4096) → (4, 4096)
 | softmax(...) | (n, n) | 归一化后的注意力权重 |
 | 最终输出 | (n, d) | 融合上下文后的新向量序列 |
 
-实际的 Transformer 使用的是 **Multi-Head Attention**：将 Q、K、V 拆分到多个 head（比如 32 个），每个 head 独立计算注意力，最后 concat 起来。这样不同的 head 可以关注不同维度的特征。
+实际的 Transformer 使用的是 **Multi-Head Attention**：将 Q、K、V 拆分到多个 head（比如 32 个），每个 head 独立计算注意力，最后 concat 起来。concat 之后还需要经过一个 **Output Projection**（W_o 矩阵）线性变换，才能变回 `(n, d)` 与残差相加。这样不同的 head 可以关注不同维度的特征，W_o 则负责将多头的信息融合映射回原始维度。
 
 ### 因果掩码（Causal Mask）
 
@@ -299,7 +301,7 @@ probs  = softmax(logits)     # 归一化成概率
 next_token = sample(probs)   # 根据概率采样
 ```
 
-LM Head 的 shape 是 `(hidden_dim, vocab_size)`。很多模型会使用 **weight tying**——LM Head 就是 Embedding Matrix 的转置。这样做既节省参数，又保持了语义一致性：Embedding 时 token → 向量，输出时向量 → token，用的是同一个映射的正反方向。
+LM Head 的 shape 是 `(hidden_dim, vocab_size)`。很多模型会使用 **weight tying（权重绑定）**——LM Head 就是 Embedding Matrix 的转置。这样做既节省参数，又保持了语义一致性：Embedding 时 token → 向量，输出时向量 → token，用的是同一个映射的正反方向。
 
 ## 推理流程：Prefill + Decode
 
