@@ -5,7 +5,7 @@ publishDate: "2026-02-11"
 tags: ["llm"]
 ---
 
-在[上一篇文章](/post/llm-for-beginners/)中，简单介绍了 LLM 的训练流程和 Transformer 的自注意力机制。这篇文章想把 Transformer 的内部结构拆得更细一些——从分词到 Embedding，从 QKV 到因果掩码，从 FFN 到残差连接，再到推理阶段的 Prefill 与 Decode。
+在[上一篇文章](/posts/llm-for-beginners/)中，简单介绍了 LLM 的训练流程和 Transformer 的自注意力机制。这篇文章想把 Transformer 的内部结构拆得更细一些——从分词到 Embedding，从 QKV 到因果掩码，从 FFN 到残差连接，再到推理阶段的 Prefill 与 Decode。
 
 ## 分词：BPE
 
