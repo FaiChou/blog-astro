@@ -1,7 +1,7 @@
 ---
 title: "From Embedding to Attention: A Transformer Walkthrough"
 description: "从 Embedding、Attention 到 Prefill 与 Decode 的梳理。涵盖 QKV、因果注意力、KV Cache、FFN 与残差等概念。"
-publishDate: "2026-02-12"
+publishDate: "2026-02-11"
 tags: ["llm"]
 ---
 
