@@ -1,5 +1,5 @@
 ---
-title: "IPTV 组播转单播原理与 udpxy 源码深度解析"
+title: "IPTV 组播转单播原理与 udpxy 源码解析"
 description: "从 VLAN 配置到 udpxy 源码分析，彻底搞懂家庭宽带 IPTV 的单线复用与任意设备播放实现。"
 publishDate: "2026-01-16"
 tags: ["devops", "iptv", "network", "c"]
