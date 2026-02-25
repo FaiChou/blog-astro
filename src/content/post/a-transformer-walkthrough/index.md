@@ -81,21 +81,15 @@ Embedding Matrix 是 2D 矩阵，但 Transformer 里流动的数据通常是 3D 
 
 **点积（Dot Product / 内积）**：两个向量逐元素相乘再求和，得到一个标量。几何上就是「一个向量在另一个上的投影长度 × 另一个的长度」，可以衡量两个向量的相似度：
 
-```
-a · b = a₁b₁ + a₂b₂ + ... + aₙbₙ = |a||b|cosθ
-```
+$$a \cdot b = a_1b_1 + a_2b_2 + \cdots + a_nb_n = |a||b|\cos\theta$$
 
 **加权求和（Weighted Sum）**：给每个输入一个权重，乘完之后加起来。神经网络的基础操作——每个神经元做的就是加权求和再过激活函数：
 
-```
-Output = w₁x₁ + w₂x₂ + w₃x₃ = Σ wᵢxᵢ
-```
+$$\text{Output} = w_1x_1 + w_2x_2 + w_3x_3 = \sum_i w_i x_i$$
 
 **矩阵乘法（Matrix Multiplication）**：本质就是「批量做点积」。矩阵 A 的每一行和矩阵 B 的每一列做点积，得到结果矩阵的对应位置：
 
-```
-(AB)ᵢⱼ = Σₖ AᵢₖBₖⱼ
-```
+$$(AB)_{ij} = \sum_k A_{ik}B_{kj}$$
 
 在 Transformer 里，这三个操作无处不在：
 
@@ -129,7 +123,7 @@ V = X @ Wv  # 同上
 
 ### 注意力计算
 
-`Attention(Q, K, V) = softmax(Q·K^T / √d_k) · V`
+$$\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^T}{\sqrt{d_k}}\right) V$$
 
 分步拆解，假设序列长度 n=4：
 
