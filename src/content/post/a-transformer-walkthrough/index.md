@@ -123,7 +123,7 @@ V = X @ Wv  # 同上
 
 ### 注意力计算
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^T}{\sqrt{d_k}}\right) V$$
+$$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right) V$$
 
 分步拆解，假设序列长度 n=4：
 
