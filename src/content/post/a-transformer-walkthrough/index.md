@@ -89,7 +89,7 @@ $$\text{Output} = w_1x_1 + w_2x_2 + w_3x_3 = \sum_i w_i x_i$$
 
 **矩阵乘法（Matrix Multiplication）**：本质就是「批量做点积」。矩阵 A 的每一行和矩阵 B 的每一列做点积，得到结果矩阵的对应位置：
 
-$$(AB)_{ij} = \sum_k A_{ik}B_{kj}$$
+<div>$$(AB)_{ij} = \sum_k A_{ik}B_{kj}$$</div>
 
 在 Transformer 里，这三个操作无处不在：
 
