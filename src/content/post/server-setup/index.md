@@ -109,8 +109,6 @@ set smartcase
 set hlsearch
 set incsearch
 syntax on
-set background=dark
-colorscheme elflord
 set timeoutlen=500
 set updatetime=300
 EOF
