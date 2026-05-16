@@ -64,7 +64,7 @@ cat << 'EOF' > .zshrc
 export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="aussiegeek"
-DISABLE_AUTO_UPDATE=true
+zstyle ':omz:update' mode disabled
 plugins=(git z zsh-autosuggestions fzf)
 source $ZSH/oh-my-zsh.sh
 
