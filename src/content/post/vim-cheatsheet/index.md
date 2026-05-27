@@ -186,6 +186,7 @@ g*          # find cursor word (foo -> foo, foobar)
 :%s/foo/bar # replace once
 :%s/foo/bar/i # same as :%s/foo\c/bar
 :%s/foo/bar/gc # will popup confirm
+:%s/https.*/[](&)/g # replace https links with markdown links
 
 # replace with bar (y/n/a/q/l/^E/^Y)?
 # yes no all quit line ~
