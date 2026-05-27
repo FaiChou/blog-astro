@@ -266,7 +266,7 @@ p        # just paste for ""
 ```bash
 
 vim file1 file2 # open
-:e[dit] file3   # open 
+:e[dit] file3   # open
 
 :ls, :buffers   # list buffers
 :bn[ext]        # list next buffer
@@ -327,7 +327,7 @@ vim -p file1 file2 file3 # open in tabs
 
 gt            # go to next tab
 gT            # go to previous tab
-{i}gt         # go to tab in position i 
+{i}gt         # go to tab in position i
 
 ```
 
@@ -341,7 +341,7 @@ gT            # go to previous tab
 :echo expand('%:p:h')   # /home/FaiChou/Desktop/Project/A/src
 :echo expand('%:p:h:t') # src
 
-# p(path) h(head) t(tail) 
+# p(path) h(head) t(tail)
 
 :w %.bak        # backup current to current.bak
 :e %:p:h/main.h # open current path's main.h
@@ -378,6 +378,11 @@ cs"'    # change surrond " to '
 :.,+9s/new/<C-R>0/g # replace new to regster0 from current to next 9 lines
 
 :2,4j   # join line 2-4
+
+:g/pattern/d  # delete lines matching pattern
+:g!/pattern/d # delete lines not matching pattern
+:g/^$/d       # delete empty lines
+:g/^\s*$/d    # delete lines with only whitespace
 
 # insert mode shortcuts
 <C-W> # delete before cursor words
@@ -453,7 +458,7 @@ m: Show menu
 
 # Tree navigation
 
-P: go to root 
+P: go to root
 p: go to parent
 K: go to first child
 J: go to last child
@@ -478,4 +483,3 @@ A: Zoom (maximize-minimize)
 <c-j>/<c-k>,<up>/<down>  switch
 <enter>/<c-t> open / open in tab
 ```
-
